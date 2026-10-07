@@ -1,53 +1,768 @@
 <!DOCTYPE html>
 <html lang="fr"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#4a63e0"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Jeux de mots"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Jeux de mots</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Jeux de mots">
+<meta name="theme-color" content="#4a63e0"><title>Jeux de mots</title><link rel="apple-touch-icon" id="ic">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--card:rgba(255,255,255,.96);--fg:#1c2540;--bar:rgba(255,255,255,.97);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bar:rgba(26,30,48,.97);--fg:#eef1fa}}
-:root[data-theme="dark"]{--bar:rgba(26,30,48,.97);--fg:#eef1fa}
-html,body{height:100%}
-body{margin:0;background:linear-gradient(165deg,#3b6fe0,#7a5af0 55%,#e0589f) fixed;font:16px/1.35 system-ui,-apple-system,"Segoe UI",sans-serif;color:#fff;overscroll-behavior:none;touch-action:manipulation}
-#hm{max-width:520px;margin:0 auto;padding:34px 20px 30px;display:flex;flex-direction:column;gap:16px}
-h1{margin:0;font:800 34px/1.1 system-ui;text-shadow:0 2px 8px rgba(0,0,0,.3)}
-.sub{margin:0 0 8px;font-size:18px;opacity:.95}
-.card{display:flex;align-items:center;gap:16px;width:100%;border:0;border-radius:26px;padding:18px;text-align:left;color:#fff;font:inherit;box-shadow:0 10px 24px rgba(0,0,0,.28);cursor:pointer}
-.card:focus-visible{outline:4px solid #fff;outline-offset:3px}
-.card.m{background:linear-gradient(135deg,#ff9a3c,#ff5e62)}
-.card.f{background:linear-gradient(135deg,#2fc4a4,#2a82e0)}
-.ico{flex:none;width:76px;height:76px;border-radius:20px;background:rgba(255,255,255,.24);display:flex;align-items:center;justify-content:center;font-size:44px}
-.card b{display:block;font:800 23px/1.15 system-ui}
-.card em{display:block;font-style:normal;font-size:14px;opacity:.95;margin:2px 0 8px}
-.card u{text-decoration:none;display:inline-block;background:rgba(255,255,255,.28);border-radius:14px;padding:2px 12px;font-weight:700;font-size:14px}
-.foot{text-align:center;font-size:14px;opacity:.9;margin-top:6px}
-#gm{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--bar);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-#gm[hidden],#hm[hidden]{display:none}
-#bar{display:flex;align-items:center;gap:10px;padding:6px 10px;background:var(--bar);color:var(--fg);box-shadow:0 2px 8px rgba(0,0,0,.2);z-index:2}
-#bar button{border:0;border-radius:18px;padding:7px 14px;font:700 15px system-ui;background:linear-gradient(135deg,#4a63e0,#8a5af0);color:#fff;cursor:pointer}
-#bar b{font:800 17px system-ui}
-#fr{flex:1;width:100%;border:0;background:transparent}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+html,body{height:100%;overflow:hidden;overscroll-behavior:none;background:#2b2370;color:#fff;font-family:Fredoka,ui-rounded,"SF Pro Rounded",system-ui,-apple-system,sans-serif}
+button{font:inherit;color:inherit;border:0;touch-action:manipulation;cursor:pointer}
+svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.scr{position:fixed;inset:0;display:none;flex-direction:column;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}.scr.on{display:flex}
+#home{background:linear-gradient(180deg,#3b4fd9 0%,#6a52ee 42%,#c24fa8 82%,#e2609a 100%);overflow-y:auto}
+.sc{position:fixed;inset:0;overflow:hidden;pointer-events:none}
+.moon{position:absolute;right:16px;top:76px;width:84px;height:84px;filter:drop-shadow(0 0 24px rgba(255,255,255,.7))}.stars{position:absolute;left:0;top:0;width:100%;height:46vh}
+.cld{position:absolute;height:38px;border-radius:30px;background:rgba(255,255,255,.2)}.cld::before{content:'';position:absolute;left:18%;top:-55%;width:42%;height:150%;border-radius:50%;background:inherit}
+svg.dc{position:absolute;width:60px;height:60px;opacity:.4}
+.cty{position:absolute;left:0;bottom:0;width:100%;height:46vh}
+.hc{position:relative;flex:none;padding:44px 22px 130px}
+.hc h1{font-size:35px;font-weight:700;line-height:1.05;text-shadow:0 3px 14px rgba(40,20,120,.35)}
+.hc .s{font-size:19px;opacity:.95;margin:10px 0 40px;line-height:1.3}
+.pr{display:flex;gap:10px;margin-bottom:16px}.pr button{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:13px 4px;border-radius:20px;background:rgba(255,255,255,.2);font-weight:600;font-size:15px}.pr svg{font-size:20px}
+.gc{display:flex;align-items:center;gap:16px;width:100%;text-align:left;border-radius:28px;padding:20px 18px;margin-bottom:18px;box-shadow:0 14px 30px rgba(30,10,100,.3),inset 0 2px 0 rgba(255,255,255,.35)}
+.gc.m{background:linear-gradient(135deg,#ffa23c,#ff5f6d)}.gc.f{background:linear-gradient(135deg,#2ecfa6,#2a82e0)}
+.gc .ic{width:68px;height:68px;border-radius:22px;background:rgba(255,255,255,.26);display:grid;place-items:center;flex:none}.gc .ic svg{width:46px;height:46px}
+.gc h2{font-size:26px;font-weight:700;line-height:1.1}.gc small{display:block;font-size:16px;opacity:.95;margin:3px 0 9px}
+.lvp{display:inline-block;background:rgba(255,255,255,.3);border-radius:16px;padding:4px 15px;font-weight:600;font-size:16px}
+.st{display:flex;gap:8px;margin-bottom:14px}.st span{display:flex;align-items:center;justify-content:center;gap:6px;flex:1;background:rgba(255,255,255,.2);border-radius:22px;padding:11px 6px;font-weight:600;font-size:16px;white-space:nowrap}.st svg{font-size:21px}.st span:nth-child(1) svg{color:#ffe27a}.st span:nth-child(2) svg{color:#ffa14a}.st span:nth-child(3) svg{color:#7cf0c0}
+.nc{background:rgba(255,255,255,.2);border-radius:26px;padding:20px;display:flex;flex-direction:column;gap:12px;margin-bottom:14px}.nc b{font-size:21px;font-weight:600}
+.in{width:100%;padding:15px 16px;border-radius:16px;border:0;font:inherit;font-size:17px;background:#fff;color:#2b2570;-webkit-user-select:text;user-select:text;outline:0}
+.mini{text-align:center;font-size:15px;opacity:.9;margin-top:6px}
+.tabs{position:fixed;left:0;right:0;bottom:0;display:flex;background:#1b1747;padding:8px 6px calc(env(safe-area-inset-bottom) + 6px);border-radius:22px 22px 0 0;z-index:2}.tabs button{flex:1;background:none;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:13px;font-weight:600;opacity:.5;padding:6px 0}.tabs button.on{opacity:1}.tabs svg{font-size:26px}
+#game{background:linear-gradient(175deg,#4a63e0 0%,#7357ee 52%,#b650b4 100%)}.top{display:flex;align-items:center;gap:12px;padding:8px 14px}.pill{white-space:nowrap;background:rgba(255,255,255,.22);border-radius:20px;padding:10px 16px;font-weight:600;font-size:16px}.top b{font-size:21px;font-weight:600}
+.band{flex:1;min-height:0;display:flex;flex-direction:column}
+.lr{display:flex;justify-content:space-between;align-items:center;padding:6px 18px 0}.lr b{font-size:30px;font-weight:700}
+.hb{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.22);border-radius:20px;padding:7px 15px;font-weight:600;font-size:18px}.hb svg{font-size:20px;color:#ffe27a}
+#gw{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:8px}
+#grid{display:grid;touch-action:none;border-radius:12px;overflow:hidden;box-shadow:0 0 0 4px #fff,0 14px 34px rgba(25,10,90,.45)}
+.cell{width:var(--c);height:var(--c);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:calc(var(--c)*.52);background:#fbfaff;color:#2b2570;box-shadow:inset 0 0 0 .5px #cfcaf2;position:relative;overflow:hidden}
+.X{background:#4d3fb0 radial-gradient(rgba(255,255,255,.2) 1.6px,transparent 2.2px) 0 0/11px 11px;box-shadow:none}.K{flex-direction:column;align-items:stretch;background:#e0dcff;font-size:calc(var(--c)*.17);line-height:1.05;font-weight:600;color:#33288f;text-align:center}
+.cb{flex:1;position:relative;display:flex;align-items:center;justify-content:center;padding:1px 2px;overflow:hidden;word-break:normal;overflow-wrap:normal;hyphens:auto;-webkit-hyphens:auto}.cb.r{padding-right:calc(var(--c)*.15)}.cb.d{padding-bottom:calc(var(--c)*.17)}
+.cb i{position:absolute;font-style:normal;color:#6a55e8;font-size:calc(var(--c)*.16)}.cb i.r{right:0;top:50%;transform:translateY(-50%)}.cb i.d{bottom:-1px;left:50%;transform:translateX(-50%)}
+.L{cursor:pointer}.L.a{background:#ffeaa8}.L.s{background:#ffc93c}.L.w{background:#ffc4cf;color:#b0203c}
+.M{font-weight:700}.M.o{background:#eee9ff}.M.sl{background:#ffd23c;color:#2b2570}.M.fd{color:#fff;text-shadow:0 1px 2px rgba(20,10,80,.3)}.M.ht{animation:p .8s 3}@keyframes p{50%{background:#ffc93c}}
+#ctl{background:#2b2370;border-radius:26px 26px 0 0;padding:12px 12px 8px;margin-top:-6px;position:relative}
+.tb{display:flex;gap:6px;margin-bottom:8px}.bt{flex:1;padding:11px 2px;border-radius:14px;background:rgba(255,255,255,.14);font-weight:600;font-size:14px;white-space:nowrap}@media(max-width:390px){.bt{font-size:13px}}@media(max-height:700px){.kb button{height:38px}}
+.cr{display:flex;gap:6px;margin-bottom:8px}#cl{flex:1;background:linear-gradient(135deg,#ffd54a,#ffb12a);color:#3b2a00;border-radius:14px;padding:11px 14px;font-weight:600;font-size:16px;display:flex;align-items:center}.nv{width:46px;border-radius:14px;background:rgba(255,255,255,.16)}
+.kb{display:flex;gap:5px;margin-bottom:6px;justify-content:center}.kb button{flex:1;height:42px;border-radius:10px;background:#fff;color:#2b2570;font-weight:600;font-size:19px;max-width:42px;box-shadow:0 3px 0 #b9b1ea}.kb button:active{transform:translateY(2px);box-shadow:0 1px 0 #b9b1ea}
+.ch{background:#fff;color:#2b2570;border-radius:12px;font-weight:600}.ch.on{text-decoration:line-through}
+.ov{position:fixed;inset:0;background:rgba(10,12,30,.7);display:none;place-items:center;z-index:9}.ov.on{display:grid}
+.card{background:#fff;color:#2b2570;border-radius:26px;padding:28px 24px;text-align:center;width:min(320px,86vw)}.card h2{font-size:26px;margin:6px 0}.card .bt{background:#4a63e0;color:#fff;margin-top:14px;width:100%;flex:none;padding:14px}.card .bt.g{background:#e9e8fb;color:#4a3fb8;margin-top:8px}
+.sh{place-items:end center}.sheet{background:#231f55;color:#fff;border-radius:28px 28px 0 0;width:100%;text-align:left;padding:22px 20px calc(env(safe-area-inset-bottom) + 18px)}.sheet .bt{background:#3a3480}
+.rw{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.1);font-weight:600}.rw>svg{font-size:28px}.rw div{flex:1}.rw small{display:block;opacity:.7;font-weight:400}.pg{height:6px;border-radius:3px;background:rgba(255,255,255,.18);margin-top:7px;overflow:hidden}.pg i{display:block;height:100%;background:#ffd54a}.rw.ok>svg{color:#5eead4}.rw.no{opacity:.55}
+#toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 112px);transform:translateX(-50%);background:#000c;padding:10px 16px;border-radius:14px;font-weight:600;display:none;z-index:10;white-space:nowrap}
+
+.ov{overflow:hidden}.cf{position:absolute;top:-16px;width:9px;height:14px;border-radius:2px;animation:fall linear forwards}@keyframes fall{to{transform:translateY(105vh) rotate(540deg)}}
+.cell.pp{animation:pop .5s ease both;animation-delay:calc(var(--i)*70ms);z-index:2}@keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.28);box-shadow:0 0 0 3px #5eead4}100%{transform:scale(1)}}
+.cell.sk{animation:shk .42s}@keyframes shk{20%{transform:translateX(-4px)}40%{transform:translateX(4px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+.L.ok{background:#c8f3dc;color:#0b5d3b}.L.s{background:#ffc93c;color:#2b2570}
+#cl.dn{background:linear-gradient(135deg,#6ff0d0,#2ec48a);color:#06402a}
+.hb{position:relative}.hb.bp{animation:bmp .45s}@keyframes bmp{40%{transform:scale(1.2)}}.hb .fl{position:absolute;right:12px;top:100%;color:#ffe27a;font-style:normal;font-weight:700;animation:fup 1s forwards;text-shadow:0 1px 4px #0006}@keyframes fup{from{opacity:1}to{opacity:0;transform:translateY(-30px)}}
+.bt.off{opacity:.4}.lr small{display:block;font-size:14px;font-weight:500;opacity:.88;margin-top:-2px}
+#hb{display:none}.bt{position:relative}.bt.bp{animation:bmp .45s}.bt .fl{position:absolute;left:50%;top:-4px;margin-left:-8px;color:#ffe27a;font-style:normal;font-weight:700;animation:fup 1s forwards;text-shadow:0 1px 4px #000}
+#chips{display:flex;flex-wrap:wrap;align-content:flex-start;gap:5px;margin-bottom:8px;height:96px;overflow-y:auto}.ch{padding:4px 10px;font-size:13px;letter-spacing:.3px}
 </style></head><body>
-<div id="hm">
-<h1>Jeux de mots</h1>
-<p class="sub">Bonjour ! À quoi veux-tu jouer ?</p>
-<button class="card m" id="om"><span class="ico">🔎</span><span><b>Mots mêlés</b><em>Retrouve les mots cachés dans la grille</em><u id="sm"></u></span></button>
-<button class="card f" id="of"><span class="ico">✏️</span><span><b>Mots fléchés</b><em>Remplis la grille avec les définitions</em><u id="sf"></u></span></button>
-<p class="foot">Aucune pub, jamais. Ta partie est sauvegardée.</p>
+<div class="scr on" id="home"><div class="sc"><svg class="stars" viewBox="0 0 400 260" preserveAspectRatio="xMidYMin slice" fill="#fff" opacity=".75"><circle cx="330" cy="26" r="1.6"/><circle cx="272" cy="14" r="1.3"/><circle cx="360" cy="60" r="1.2"/><circle cx="235" cy="40" r="1.1"/><circle cx="385" cy="170" r="1.2"/><circle cx="300" cy="205" r="1.3"/><circle cx="24" cy="12" r="1.2"/></svg>
+<svg class="moon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#fff"/><circle cx="34" cy="38" r="9" fill="#dcdcf6"/><circle cx="62" cy="60" r="13" fill="#e4e4f8"/><circle cx="68" cy="30" r="5" fill="#dcdcf6"/><circle cx="40" cy="70" r="5" fill="#e4e4f8"/></svg>
+
+
+
+
+<svg class="cty" viewBox="0 0 400 420" preserveAspectRatio="xMidYMax slice"><g fill="rgba(110,30,140,.3)"><rect x="0" y="300" width="72" height="120"/><rect x="72" y="345" width="48" height="75"/><rect x="300" y="280" width="100" height="140"/><rect x="268" y="352" width="32" height="68"/></g><g transform="translate(100 100)" fill="rgba(80,20,125,.4)"><path d="M100 4L104 40H110L114 90H124L132 150H146L168 316H142L128 252Q100 226 72 252L58 316H32L54 150H68L76 90H86L90 40H96Z"/><rect x="50" y="146" width="100" height="9"/><rect x="72" y="86" width="56" height="6"/></g></svg></div>
+<div class="hc" id="hc"></div><nav class="tabs" id="tb"></nav></div>
+<div class="scr" id="game">
+ <div class="top"><button class="pill" id="bk">‹ Accueil</button><b id="ttl"></b></div>
+ <div class="band"><div class="lr"><b id="lvt"></b><span class="hb" id="hb"></span></div><div id="gw"><div id="grid"></div></div></div>
+ <div id="ctl"></div>
 </div>
-<div id="gm" hidden><div id="bar"><button id="bk" aria-label="Retour à l'accueil">‹ Accueil</button><b id="gt"></b></div><iframe id="fr" title="Jeu"></iframe></div>
+<div class="ov" id="win"><div class="card"><svg class="i" style="width:60px;height:60px;fill:#ffd54a;stroke:#e0a800" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg><h2 id="wt"></h2><p>+2 lettres · +1 mot</p><button class="bt" id="nx">Niveau suivant</button><button class="bt g" id="hm">Accueil</button></div></div>
+<div class="ov sh" id="pn"><div class="card sheet"><h2 id="pt"></h2><div id="pb"></div><button class="bt" id="pc">Fermer</button></div></div>
+<div class="ov" id="cf2" style="z-index:12"><div class="card"><h2 id="cq"></h2><button class="bt" id="cy"></button><button class="bt g" id="cn">Annuler</button></div></div>
+<div id="toast"></div>
 <script>
-const G={"m": "<!DOCTYPE html>\n<html lang=\"fr\"><head><meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n<meta name=\"theme-color\" content=\"#2f7fd8\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"apple-mobile-web-app-title\" content=\"Mots mêlés\"><meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black-translucent\">\n<title>Mots mêlés<\/title>\n<style>\n:root{--g1:#1e90ff;--g2:#00c6ff;--card:rgba(255,255,255,.94);--fg:#1b2a41;--mut:#9aa5b5;--sel:#ffd54f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}\n@media (prefers-color-scheme:dark){:root:not([data-theme=\"light\"]){--card:rgba(28,31,46,.94);--fg:#eef1f7;--mut:#6f7a8d;--sel:#b38f00}}\n:root[data-theme=\"dark\"]{--card:rgba(28,31,46,.94);--fg:#eef1f7;--mut:#6f7a8d;--sel:#b38f00}\nhtml{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}\nbody{margin:0;min-height:100%;background:linear-gradient(165deg,var(--g1),var(--g2)) fixed;font:16px/1.3 system-ui,-apple-system,\"Segoe UI\",sans-serif;color:var(--fg);touch-action:manipulation;overscroll-behavior:none;overflow-x:hidden}\nbody::before{content:\"\";position:fixed;inset:0;background:radial-gradient(circle at 15% 12%,rgba(255,255,255,.28),transparent 38%),radial-gradient(circle at 90% 70%,rgba(255,255,255,.18),transparent 42%);pointer-events:none}\nmain{position:relative;max-width:520px;margin:0 auto;padding:10px 14px 24px;display:flex;flex-direction:column;gap:12px}\n#lv{text-align:center;color:#fff;font:800 22px system-ui;letter-spacing:.5px;text-shadow:0 2px 6px rgba(0,0,0,.3);padding-top:4px}\n#wc{background:var(--card);border-radius:18px;box-shadow:0 6px 18px rgba(0,0,0,.18);overflow:hidden}\n#bn{background:linear-gradient(#ffb347,#f08a24);color:#fff;text-align:center;font:800 18px system-ui;padding:7px 10px;text-shadow:0 1px 2px rgba(0,0,0,.25)}\n#wl{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;padding:12px 12px 14px;font-weight:700;font-size:15px}\n#wl .d{color:var(--mut);text-decoration:line-through}\n#gc{background:var(--card);border-radius:22px;padding:10px;box-shadow:0 6px 18px rgba(0,0,0,.18)}\n#g{display:grid;grid-template-columns:repeat(var(--n),1fr);touch-action:none;user-select:none;-webkit-user-select:none;font-size:calc(min(100vw - 52px,500px)/var(--n)*.58)}\n.c{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-weight:800;border-radius:12px;margin:1px;transition:background .15s}\n.c.s{background:var(--sel);color:#2b1d00}\n.c.f{color:#fff}\n.c.h{animation:p .8s ease-in-out infinite}\n@keyframes p{50%{background:var(--sel);transform:scale(1.12)}}\n@media (prefers-reduced-motion:reduce){.c.h{animation:none;background:var(--sel)}}\n#bt{display:flex;justify-content:space-between;padding:0 10px}\n#bt button{position:relative;width:62px;height:62px;border-radius:50%;border:0;color:#fff;font-size:28px;background:linear-gradient(#e8467c,#b02a6b);box-shadow:0 5px 12px rgba(0,0,0,.3);cursor:pointer}\n#bt button:focus-visible{outline:3px solid #fff;outline-offset:3px}\n#bt b{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);background:#fff;color:#b02a6b;font:800 13px system-ui;border-radius:10px;padding:1px 8px;box-shadow:0 2px 4px rgba(0,0,0,.3)}\n#t{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 12px);transform:translateX(-50%);background:#1b2a41;color:#fff;padding:8px 14px;border-radius:20px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:5;font-size:14px}\n#t.on{opacity:1}\n#ov{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:9;padding:20px}\n#ov[hidden]{display:none}\n#ov div{background:var(--card);border-radius:20px;padding:24px;text-align:center;max-width:320px;backdrop-filter:blur(6px)}\n#ov h2{font:800 26px system-ui;margin:0 0 6px}\n#ov button{border:0;border-radius:24px;padding:12px 24px;margin-top:14px;font:700 16px system-ui;color:#fff;background:linear-gradient(#e8467c,#b02a6b)}\n<\/style><\/head><body>\n<main>\n<div id=\"lv\"><\/div>\n<div id=\"wc\"><div id=\"bn\"><\/div><div id=\"wl\"><\/div><\/div>\n<div id=\"gc\"><div id=\"g\"><\/div><\/div>\n<div id=\"bt\"><button id=\"rs\" aria-label=\"Nouvelle grille\">↻<\/button><button id=\"ht\" aria-label=\"Indice\">💡<b id=\"hc\"><\/b><\/button><\/div>\n<\/main>\n<div id=\"t\"><\/div>\n<div id=\"ov\" hidden><div><h2 id=\"ot\"><\/h2><p id=\"op\"><\/p><button id=\"on\">Niveau suivant<\/button><\/div><\/div>\n<script>\nconst T=[\n[\"Cuisine\",\"🍳\",\"#ff9a3c\",\"#ff5e62\",\"FARINE SUCRE BEURRE OEUF LAIT SEL POIVRE HUILE CREME MIEL LEVURE VANILLE PATE FOUR\"],\n[\"Ferme\",\"🐄\",\"#3a9d23\",\"#7bc96f\",\"VACHE COCHON POULE CHEVAL MOUTON CHEVRE CANARD OIE LAPIN ANE COQ PONEY DINDON\"],\n[\"Bord de mer\",\"🌊\",\"#1e90ff\",\"#00c6ff\",\"PLAGE SABLE VAGUE BATEAU CORAIL REQUIN CRABE ALGUE MAREE PHARE DAUPHIN VOILIER\"],\n[\"Hiver\",\"❄️\",\"#4a6fd8\",\"#8fb8f0\",\"NEIGE GLACE GIVRE SKI ECHARPE BONNET GANT FROID TRAINEAU CHALET LUGE MANTEAU\"],\n[\"Fruits\",\"🍓\",\"#e6406f\",\"#ff8a5c\",\"POMME POIRE FRAISE CERISE ABRICOT PECHE PRUNE MELON BANANE ORANGE CITRON RAISIN FIGUE\"],\n[\"Légumes\",\"🥕\",\"#3aa655\",\"#8bd17c\",\"CAROTTE POIREAU RADIS CHOU NAVET OIGNON POIVRON COURGETTE HARICOT EPINARD CELERI AUBERGINE TOMATE\"],\n[\"Voyage\",\"✈️\",\"#6a5acd\",\"#a18cd1\",\"AVION TRAIN VALISE HOTEL PLAGE CARTE PASSEPORT BILLET GARE PORT TAXI BAGAGE ESCALE\"],\n[\"Musique\",\"🎵\",\"#8e44ad\",\"#e056a0\",\"PIANO VIOLON FLUTE HARPE GUITARE TROMPETTE BATTERIE CHANT OPERA CHORALE NOTE ACCORDEON\"],\n[\"Jardin\",\"🌷\",\"#2e9e5b\",\"#9ad46b\",\"ROSE TULIPE LILAS MUGUET PELOUSE ARROSOIR GRAINE RATEAU BECHE POTAGER HAIE FLEUR SERRE\"],\n[\"Maison\",\"🏠\",\"#e07b39\",\"#f0a45d\",\"TABLE CHAISE CANAPE LAMPE TAPIS RIDEAU ARMOIRE COMMODE MIROIR ETAGERE CUISINE SALON BALCON\"],\n[\"Forêt\",\"🌲\",\"#1e7a5a\",\"#52b788\",\"CHENE SAPIN HETRE BOULEAU MOUSSE CHAMPIGNON CERF SANGLIER ECUREUIL SENTIER FOUGERE CLAIRIERE\"],\n[\"Paris\",\"🗼\",\"#3a7bd5\",\"#6dd5ed\",\"LOUVRE SEINE EIFFEL MONTMARTRE OPERA PONT METRO CAFE BISTROT PLACE PALAIS QUAI\"],\n[\"Fêtes\",\"🎉\",\"#e84393\",\"#fd79a8\",\"NOEL PAQUES CADEAU BOUGIE BALLON GATEAU FETE CONFETTI CHAMPAGNE GUIRLANDE SAPIN DANSE\"],\n[\"Sport\",\"⚽\",\"#0f8b6d\",\"#3fc79a\",\"FOOTBALL TENNIS RUGBY GOLF NATATION JUDO BOXE BASKET CYCLISME COURSE SKI HANDBALL\"],\n[\"Métiers\",\"👩‍🍳\",\"#5568d8\",\"#8a9bf0\",\"BOULANGER MEDECIN INFIRMIERE PLOMBIER PEINTRE MAIRE FACTEUR POMPIER CUISINIER AVOCAT PILOTE COIFFEUR\"],\n[\"Couleurs\",\"🎨\",\"#ff7e5f\",\"#feb47b\",\"ROUGE BLEU VERT JAUNE ORANGE VIOLET ROSE NOIR BLANC GRIS MARRON TURQUOISE BEIGE\"],\n[\"Oiseaux\",\"🐦\",\"#2a9bb5\",\"#6fd3d0\",\"AIGLE MERLE PIGEON HIBOU MOUETTE CYGNE CIGOGNE PERROQUET FLAMANT HIRONDELLE MOINEAU CORBEAU PAON\"],\n[\"Régions\",\"🇫🇷\",\"#3b5bdb\",\"#74a0ff\",\"BRETAGNE ALSACE CORSE NORMANDIE PROVENCE AUVERGNE BOURGOGNE LORRAINE ARDENNES SAVOIE LANDES ANJOU\"],\n[\"Chaleureux\",\"🔥\",\"#e8590c\",\"#fa8c3c\",\"CHAUSSONS PLAID DUVET CHEMINEE SOUPE THE CHOCOLAT BOUGIE CHALEUR PULL LAINE COUVERTURE\"],\n[\"Espace\",\"🚀\",\"#1b2845\",\"#5b4b8a\",\"LUNE SOLEIL MARS FUSEE ETOILE COMETE GALAXIE SATURNE JUPITER PLANETE ORBITE ASTRONAUTE\"],\n[\"Météo\",\"⛅\",\"#4b7bec\",\"#a5c8f8\",\"NUAGE PLUIE ORAGE VENT NEIGE BRUME ECLAIR SOLEIL GRELE TEMPETE BROUILLARD ARCENCIEL\"],\n[\"Petites bêtes\",\"🐞\",\"#2f9e44\",\"#94d82d\",\"ABEILLE FOURMI MOUCHE ARAIGNEE PAPILLON LIBELLULE COCCINELLE CHENILLE ESCARGOT MOUSTIQUE GRILLON CRIQUET\"],\n[\"Pâtisserie\",\"🥐\",\"#d6336c\",\"#f783ac\",\"CROISSANT BRIOCHE ECLAIR MACARON TARTE FLAN GATEAU CREPE BEIGNET CHOUQUETTE MILLEFEUILLE CLAFOUTIS\"],\n[\"Boissons\",\"☕\",\"#7048e8\",\"#b197fc\",\"CAFE THE LAIT JUS EAU CIDRE BIERE VIN TISANE SIROP LIMONADE CHOCOLAT\"],\n[\"Bricolage\",\"🔨\",\"#e8590c\",\"#ffa94d\",\"MARTEAU VIS CLOU SCIE PERCEUSE TOURNEVIS PINCE RABOT PEINTURE ECHELLE COLLE METRE\"]];\nconst PAL=[\"#ef6c8f\",\"#4aa3f0\",\"#9b6bd8\",\"#34b27b\",\"#f08a24\",\"#25b5c4\"];\nconst $=id=>document.getElementById(id);\nlet S=(()=>{try{return JSON.parse(localStorage.getItem(\"mm1\"))}catch(e){return null}})()||{lvl:1,hints:5,pz:null};\nlet P,cells=[],st=null,cur=[],hint=null;\nconst sv=()=>{try{S.pz=P;localStorage.setItem(\"mm1\",JSON.stringify(S))}catch(e){}};\nfunction gen(l){\n const ti=(l-1)%T.length,t=T[ti],n=Math.min(13,8+Math.floor(l/6)),k=Math.min(14,6+Math.floor(l/4));\n const D=[[0,1],[1,0],[1,1],[-1,1],[0,-1],[-1,0],[1,-1],[-1,-1]].slice(0,l<6?2:l<15?3:l<25?4:l<40?6:8);\n for(let z=0;z<200;z++){\n  const ws=t[4].split(\" \").filter(w=>w.length<=n).sort(()=>Math.random()-.5).slice(0,k).sort((a,b)=>b.length-a.length);\n  const g=Array.from({length:n},()=>Array(n).fill(\"\")),pos={};let ok=true;\n  for(const w of ws){let p=false;\n   for(let a=0;a<300&&!p;a++){\n    const d=D[Math.floor(Math.random()*D.length)],r=Math.floor(Math.random()*n),c=Math.floor(Math.random()*n),r2=r+d[0]*(w.length-1),c2=c+d[1]*(w.length-1);\n    if(r2<0||r2>=n||c2<0||c2>=n)continue;\n    let f=true;for(let i=0;i<w.length;i++){const v=g[r+d[0]*i][c+d[1]*i];if(v&&v!=w[i]){f=false;break}}\n    if(f){for(let i=0;i<w.length;i++)g[r+d[0]*i][c+d[1]*i]=w[i];pos[w]=[r,c];p=true}}\n   if(!p){ok=false;break}}\n  if(ok){const A=\"EEEEAAAIIOONNRRSSTTULDCMPBGHVF\";\n   for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(!g[r][c])g[r][c]=A[Math.floor(Math.random()*A.length)];\n   return {ti,n,g,ws,pos,f:[],cc:{}}}\n }\n}\nfunction build(){\n const g=$(\"g\");g.style.setProperty(\"--n\",P.n);g.innerHTML=\"\";cells=[];\n for(let r=0;r<P.n;r++){cells[r]=[];for(let c=0;c<P.n;c++){const d=document.createElement(\"div\");d.dataset.r=r;d.dataset.c=c;d.textContent=P.g[r][c];g.appendChild(d);cells[r][c]=d}}\n const t=T[P.ti],s=document.documentElement.style;s.setProperty(\"--g1\",t[2]);s.setProperty(\"--g2\",t[3]);\n $(\"bn\").textContent=t[1]+\" \"+t[0].toUpperCase();\n}\nfunction draw(){\n for(let r=0;r<P.n;r++)for(let c=0;c<P.n;c++){\n  const d=cells[r][c],i=P.cc[r+\",\"+c],s=cur.some(x=>x[0]==r&&x[1]==c);\n  d.className=\"c\"+(i!==undefined?\" f\":\"\")+(s?\" s\":\"\")+(hint&&hint[0]==r&&hint[1]==c?\" h\":\"\");\n  d.style.background=i!==undefined&&!s?PAL[i]:\"\"}\n $(\"wl\").innerHTML=P.ws.slice().sort().map(w=>`<span class=\"${P.f.includes(w)?\"d\":\"\"}\">${w}<\/span>`).join(\"\");\n $(\"lv\").textContent=\"NIVEAU \"+S.lvl;$(\"hc\").textContent=S.hints;\n}\nfunction fresh(){P=gen(S.lvl);hint=null;sv();build();draw()}\nfunction msg(t){const e=$(\"t\");e.textContent=t;e.classList.add(\"on\");setTimeout(()=>e.classList.remove(\"on\"),1800)}\nfunction cellAt(e){const el=document.elementFromPoint(e.clientX,e.clientY);return el&&el.dataset&&el.dataset.r!==undefined?[+el.dataset.r,+el.dataset.c]:null}\nfunction line(a,b){\n const dr=b[0]-a[0],dc=b[1]-a[1],len=Math.max(Math.abs(dr),Math.abs(dc)),q=Math.round(Math.atan2(dr,dc)/(Math.PI/4))*Math.PI/4,sr=Math.round(Math.sin(q)),sc=Math.round(Math.cos(q)),o=[];\n for(let i=0;i<=len;i++){const r=a[0]+sr*i,c=a[1]+sc*i;if(r<0||c<0||r>=P.n||c>=P.n)break;o.push([r,c])}\n return o}\nfunction submit(){\n if(cur.length<2)return;\n const w=cur.map(([r,c])=>P.g[r][c]).join(\"\"),v=[...w].reverse().join(\"\");\n const f=P.ws.find(x=>!P.f.includes(x)&&(x==w||x==v));\n if(!f)return;\n P.f.push(f);cur.forEach(([r,c])=>P.cc[r+\",\"+c]=P.f.length%PAL.length);hint=null;\n if(P.f.length==P.ws.length){win();return}\n msg(\"Trouvé : \"+f);sv()}\nfunction win(){\n S.lvl++;S.hints+=2;S.pz=null;try{localStorage.setItem(\"mm1\",JSON.stringify(S))}catch(e){}\n cur=[];draw();$(\"ot\").textContent=\"Bravo ! 🎉\";$(\"op\").textContent=`Niveau ${S.lvl-1} terminé. +2 indices !`;$(\"ov\").hidden=false}\nconst G=$(\"g\");\nG.addEventListener(\"pointerdown\",e=>{const c=cellAt(e);if(!c)return;st=c;cur=[c];draw();try{G.setPointerCapture(e.pointerId)}catch(x){}e.preventDefault()});\nG.addEventListener(\"pointermove\",e=>{if(!st)return;const c=cellAt(e);if(c){cur=line(st,c);draw()}});\nG.addEventListener(\"pointerup\",()=>{if(!st)return;st=null;submit();cur=[];if(P)draw()});\nG.addEventListener(\"pointercancel\",()=>{st=null;cur=[];draw()});\n$(\"ht\").onclick=()=>{\n const l=P.ws.filter(w=>!P.f.includes(w));if(!l.length)return;\n if(S.hints<1)return msg(\"Plus d'indices : termine une grille pour en gagner\");\n S.hints--;hint=P.pos[l[Math.floor(Math.random()*l.length)]];sv();draw()};\n$(\"rs\").onclick=()=>{if(confirm(\"Recommencer avec une nouvelle grille ?\"))fresh()};\n$(\"on\").onclick=()=>{$(\"ov\").hidden=true;fresh()};\nif(S.pz&&S.pz.g){P=S.pz;build();draw()}else fresh();\n(()=>{try{const c=document.createElement(\"canvas\");c.width=c.height=180;const x=c.getContext(\"2d\");\n x.fillStyle=\"#2f7fd8\";x.fillRect(0,0,180,180);x.font=\"800 40px system-ui,sans-serif\";x.textAlign=\"center\";x.textBaseline=\"middle\";\n const L=\"MXA,LOZ,ETT\".split(\",\");\n for(let r=0;r<3;r++)for(let k=0;k<3;k++){x.fillStyle=r==k?\"#ffd54f\":\"#fff\";x.beginPath();x.roundRect(20+k*48,20+r*48,44,44,10);x.fill();x.fillStyle=\"#1b2a41\";x.fillText(L[r][k],42+k*48,43+r*48)}\n const u=c.toDataURL(\"image/png\");[\"apple-touch-icon\",\"icon\"].forEach(r=>{const l=document.createElement(\"link\");l.rel=r;l.href=u;document.head.appendChild(l)})}catch(e){}})();\n<\/script><\/body><\/html>\n", "f": "<!DOCTYPE html>\n<html lang=\"fr\"><head><meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n<title>Mots fléchés<\/title>\n<style>\n:root{--g1:#5b6ef5;--g2:#9b6bd8;--card:rgba(255,255,255,.97);--fg:#1c2540;--cell:#fff;--ck:#d3e2f8;--ln:#9fb2d4;--hl:#fbe3b4;--sel:#ffc94d;--bad:#ffb8c0;--ac:#4f6df0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}\n@media (prefers-color-scheme:dark){:root:not([data-theme=\"light\"]){--card:rgba(26,30,48,.97);--fg:#eef1fa;--cell:#232842;--ck:#2c3a5e;--ln:#46507a;--hl:#6b5524;--sel:#b38400;--bad:#7a2f3a;--ac:#8fa3ff}}\n:root[data-theme=\"dark\"]{--card:rgba(26,30,48,.97);--fg:#eef1fa;--cell:#232842;--ck:#2c3a5e;--ln:#46507a;--hl:#6b5524;--sel:#b38400;--bad:#7a2f3a;--ac:#8fa3ff}\nhtml{height:100%}\nbody{margin:0;min-height:100%;background:linear-gradient(165deg,var(--g1),var(--g2)) fixed;color:var(--fg);font:16px/1.3 system-ui,-apple-system,\"Segoe UI\",sans-serif;touch-action:manipulation;overscroll-behavior:none}\nmain{max-width:560px;margin:0 auto;padding:8px 10px 0}\nheader{display:flex;justify-content:space-between;align-items:center;color:#fff;font-weight:800;padding:6px 4px 10px;text-shadow:0 2px 6px rgba(0,0,0,.3)}\n#lv{font-size:21px}#hn{background:rgba(255,255,255,.24);border-radius:20px;padding:3px 12px;font-size:15px}\n#gc{background:var(--card);border-radius:18px;padding:6px;box-shadow:0 6px 18px rgba(0,0,0,.2)}\n#gw{overflow-x:auto;border-radius:10px}\n#g{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:1px;background:var(--ln);border:1px solid var(--ln);width:max(100%,calc(var(--n)*44px))}\n.c{aspect-ratio:1;background:var(--cell);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;overflow:hidden;scroll-margin:70px 40px 270px 40px}\n.c.k{background:var(--ck);flex-direction:column;align-items:stretch;justify-content:stretch;font-size:9px;font-weight:700}\n.c.k0{background:var(--ck);cursor:default}\n.c.hl{background:var(--hl)}.c.sel{background:var(--sel);color:#2b1d00}.c.bad{background:var(--bad)}\n.k span{flex:1;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.05;padding:2px 5px;overflow:hidden;word-break:break-word;min-height:0}\n.k span+span{border-top:1px solid var(--ln)}\n.k i{position:absolute;font-style:normal;font-size:8px;color:var(--ac)}\n.k i.r{right:0;top:50%;transform:translateY(-50%)}.k i.d{bottom:0;left:50%;transform:translateX(-50%)}\n.dock{position:sticky;bottom:0;margin:12px -10px 0;background:var(--card);border-radius:20px 20px 0 0;padding:10px 10px 8px;box-shadow:0 -6px 18px rgba(0,0,0,.2)}\nbutton{font:inherit;border:0;border-radius:12px;padding:9px 6px;background:rgba(127,140,180,.2);color:var(--fg);cursor:pointer}\nbutton:focus-visible{outline:3px solid var(--ac)}\n.tools{display:flex;gap:6px;margin-bottom:8px}.tools button{flex:1;font-size:14px;font-weight:700}\n.cb{display:flex;align-items:center;gap:6px;margin-bottom:8px}.cb button{width:40px;flex:none}\n#cl{flex:1;font-weight:600;font-size:14px;min-height:36px;display:flex;align-items:center;background:var(--hl);border-radius:10px;padding:4px 10px}\n.kr{display:flex;gap:4px;justify-content:center;margin-top:5px}\n.kr button{flex:1;max-width:44px;padding:11px 0;font-weight:700;font-size:17px;background:var(--cell);box-shadow:0 2px 0 rgba(0,0,0,.18)}\n.kr button.w{max-width:60px}\n#t{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 12px);transform:translateX(-50%);background:#1c2540;color:#fff;padding:8px 14px;border-radius:20px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:5;font-size:14px}\n#t.on{opacity:1}\n#ov{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:9;padding:20px}\n#ov[hidden]{display:none}\n#ov div{background:var(--card);border-radius:20px;padding:24px;text-align:center;max-width:320px}\n#ov h2{font:800 26px system-ui;margin:0 0 6px}\n#ov button{border-radius:24px;padding:12px 24px;margin-top:14px;font-weight:700;color:#fff;background:linear-gradient(#5b6ef5,#8f6bd8)}\n<\/style><\/head><body>\n<main>\n<header><span id=\"lv\"><\/span><span id=\"hn\"><\/span><\/header>\n<div id=\"gc\"><div id=\"gw\"><div id=\"g\"><\/div><\/div><\/div>\n<div class=\"dock\">\n<div class=\"tools\"><button id=\"bl\">Lettre (1)<\/button><button id=\"bw\">Mot (3)<\/button><button id=\"bc\">Vérifier (1)<\/button><button id=\"bp\">Passer<\/button><\/div>\n<div class=\"cb\"><button id=\"pv\" aria-label=\"Définition précédente\">◀<\/button><div id=\"cl\"><\/div><button id=\"nx\" aria-label=\"Définition suivante\">▶<\/button><\/div>\n<div id=\"kb\"><\/div>\n<\/div>\n<\/main>\n<div id=\"t\"><\/div>\n<div id=\"ov\" hidden><div><h2 id=\"ot\"><\/h2><p id=\"op\"><\/p><button id=\"on\">Grille suivante<\/button><\/div><\/div>\n<script>\nconst B=`CHAT|Il ronronne sur le canapé\nCHIEN|Meilleur ami de l'homme\nLAPIN|Il aime les carottes\nRENARD|Roux et rusé\nHIBOU|Oiseau de nuit aux grands yeux\nCIGOGNE|Oiseau censé apporter les bébés\nBALEINE|Plus gros mammifère marin\nDAUPHIN|Mammifère marin joueur\nGIRAFE|Animal au très long cou\nZEBRE|Cheval rayé d'Afrique\nECUREUIL|Il cache des noisettes\nHERISSON|Boule de piquants\nABEILLE|Elle fait le miel\nFOURMI|Petite travailleuse en colonie\nESCARGOT|Il porte sa maison\nCRAPAUD|Cousin de la grenouille\nMOUETTE|Oiseau criard du bord de mer\nTORTUE|Lente, sous sa carapace\nLOUP|Il hurle à la pleine lune\nOURS|Il hiberne en hiver\nCERF|Il porte des bois\nSINGE|Il aime les bananes\nMOUTON|Il donne sa laine\nVACHE|Elle donne du lait\nCOQ|Il chante au lever du jour\nCANARD|Il fait coin-coin\nPAON|Il fait la roue\nARAIGNEE|Elle tisse sa toile\nPAPILLON|Insecte aux ailes colorées\nFORET|Beaucoup d'arbres\nRIVIERE|Cours d'eau plus petit qu'un fleuve\nMONTAGNE|Les Alpes en sont\nOCEAN|Atlantique ou Pacifique\nPLAGE|Sable et parasols\nNUAGE|Il flotte dans le ciel\nORAGE|Tonnerre et éclairs\nNEIGE|Flocons d'hiver\nSOLEIL|Étoile de notre système\nLUNE|Elle éclaire la nuit\nETOILE|Elle brille la nuit\nVENT|Il gonfle les voiles\nPLUIE|Elle tombe en gouttes\nROSE|Fleur à épines\nTULIPE|Fleur emblématique des Pays-Bas\nMUGUET|Porte-bonheur du 1er mai\nCHENE|Arbre qui donne des glands\nSAPIN|Arbre de Noël\nLAC|Étendue d'eau douce\nILE|Terre entourée d'eau\nVOLCAN|Il crache de la lave\nDESERT|Le Sahara, par exemple\nPRAIRIE|Vaste étendue d'herbe\nJARDIN|On y plante des fleurs\nBAGUETTE|Pain long et croustillant\nFROMAGE|Camembert ou brie\nCROISSANT|Viennoiserie du petit-déjeuner\nCHOCOLAT|Il se déguste en tablette\nCONFITURE|Elle se tartine\nPOMME|Fruit de Newton\nPOIRE|Fruit juteux\nCERISE|Petit fruit rouge à noyau\nFRAISE|Fruit rouge de printemps\nCITRON|Fruit jaune et acide\nBANANE|Fruit jaune et courbé\nORANGE|Fruit et couleur\nRAISIN|Il donne le vin\nTOMATE|Fruit rouge pris pour un légume\nCAROTTE|Légume orange\nPOIREAU|Légume vert et blanc\nOIGNON|Il fait pleurer\nSOUPE|Plat chaud à la cuillère\nGATEAU|Dessert d'anniversaire\nCREPE|On la fait sauter à la Chandeleur\nFARINE|Base du pain et des gâteaux\nSUCRE|Il adoucit le café\nBEURRE|Il vient de la crème\nCAFE|Boisson du matin\nTHE|Boisson infusée\nVIN|Boisson issue du raisin\nLAIT|Il vient de la vache\nMIEL|Doré, il est fait par les abeilles\nPARIS|Capitale de la France\nROME|Capitale de l'Italie\nMADRID|Capitale de l'Espagne\nLISBONNE|Capitale du Portugal\nLONDRES|Capitale du Royaume-Uni\nBERLIN|Capitale de l'Allemagne\nLOIRE|Plus long fleuve de France\nSEINE|Fleuve de Paris\nRHONE|Fleuve qui passe à Lyon\nGARONNE|Fleuve de Toulouse et Bordeaux\nBRETAGNE|Région des crêpes et du cidre\nNORMANDIE|Région du Mont-Saint-Michel\nALSACE|Région de Strasbourg\nCORSE|Île de beauté\nEUROPE|Continent de la France\nAFRIQUE|Continent du Sahara\nASIE|Plus grand continent\nJAPON|Pays du soleil levant\nEGYPTE|Pays des pyramides\nBRESIL|Pays du carnaval de Rio\nCANADA|Pays de la feuille d'érable\nITALIE|Pays en forme de botte\nSUISSE|Pays du chocolat et des montres\nTOKYO|Capitale du Japon\nVENISE|Ville des gondoles\nLYON|Ville entre Rhône et Saône\nMARSEILLE|Cité phocéenne\nNICE|Ville de la Promenade des Anglais\nLILLE|Grande ville du Nord\nNANTES|Ville des Machines de l'île\nTOULOUSE|Ville rose\nLOUVRE|Musée de la Joconde\nJOCONDE|Portrait peint par Léonard de Vinci\nMOLIERE|Auteur de « L'Avare »\nHUGO|Auteur des « Misérables »\nVOLTAIRE|Philosophe du siècle des Lumières\nNAPOLEON|Empereur né en Corse\nCESAR|Général romain du « Veni, vidi, vici »\nPHARAON|Souverain de l'Égypte antique\nCLEOPATRE|Dernière reine d'Égypte\nOPERA|Spectacle chanté\nTHEATRE|On y joue des pièces\nCINEMA|Septième art\nPIANO|Instrument à touches noires et blanches\nVIOLON|Instrument à archet\nGUITARE|Instrument à six cordes\nFLUTE|Instrument à vent\nTAMBOUR|On le bat\nROMAN|Livre de fiction\nPOEME|Il est fait de vers\nMUSEE|On y admire des œuvres\nPEINTRE|Artiste de la toile\nTABLE|Meuble pour manger\nCHAISE|On s'y assoit\nLIT|On y dort\nLAMPE|Elle éclaire la pièce\nHORLOGE|Elle donne l'heure\nMIROIR|Il reflète\nFENETRE|Elle donne sur l'extérieur\nPORTE|On la ferme à clé\nCLE|Elle ouvre la serrure\nTOIT|Il couvre la maison\nESCALIER|Il relie les étages\nCUISINE|Pièce où l'on prépare les repas\nVELO|Il a deux roues et des pédales\nTRAIN|Il roule sur des rails\nAVION|Il vole dans le ciel\nBATEAU|Il flotte sur l'eau\nVOITURE|Elle roule sur la route\nLIVRE|On le lit\nSTYLO|Il écrit à l'encre\nCAHIER|Il sert aux devoirs\nECOLE|On y apprend\nMONTRE|Elle se porte au poignet\nCHAPEAU|Il se porte sur la tête\nECHARPE|Elle réchauffe le cou\nGANT|Il protège la main\nBOTTE|Chaussure montante\nROBE|Vêtement féminin\nAMITIE|Lien entre deux amis\nJOIE|Grand bonheur\nREVE|Il vient en dormant\nMUSIQUE|Art des sons\nSPORT|Football ou tennis\nTENNIS|Jeu de raquette\nRUGBY|Sport du ballon ovale\nGOLF|Jeu de balles et de trous\nSKI|On le chausse en montagne\nDANSE|Valse ou tango\nENIGME|Elle est à résoudre\nMOT|Il se place dans une grille\nAIGLE|Roi des airs\nPIGEON|Oiseau des villes\nMERLE|Oiseau noir au bec jaune\nROSSIGNOL|Oiseau au chant mélodieux\nHIRONDELLE|Elle annonce le printemps\nCORBEAU|Oiseau noir de la fable\nPERROQUET|Il répète ce qu'on dit\nFLAMANT|Oiseau rose sur une patte\nMOINEAU|Petit oiseau gris des toits\nCYGNE|Oiseau blanc au long cou\nPOULE|Elle pond des œufs\nCOCHON|Animal de ferme rose\nCHEVAL|Il galope\nANE|Il a de longues oreilles\nCHEVRE|Elle broute en montagne\nLION|Roi de la savane\nTIGRE|Félin rayé\nPANTHERE|Grand félin noir\nELEPHANT|Il a une trompe\nGORILLE|Grand singe d'Afrique\nKANGOUROU|Il saute avec son petit dans la poche\nKOALA|Il dort dans l'eucalyptus\nPANDA|Ours noir et blanc\nCHAMEAU|Il a deux bosses\nDROMADAIRE|Il n'a qu'une bosse\nREQUIN|Poisson aux dents redoutables\nSAUMON|Poisson qui remonte les rivières\nTRUITE|Poisson de rivière\nTHON|Gros poisson de conserve\nHOMARD|Crustacé rouge une fois cuit\nCRABE|Il marche de côté\nPIEUVRE|Elle a huit bras\nMEDUSE|Elle pique sur la plage\nSERPENT|Il rampe\nLEZARD|Reptile qui perd sa queue\nGRENOUILLE|Elle coasse\nMOUSTIQUE|Il pique la nuit\nCOCCINELLE|Bête à bon Dieu\nLIBELLULE|Insecte aux ailes transparentes\nCHENILLE|Future papillon\nSOURIS|Elle craint le chat\nTAUPE|Elle creuse des galeries\nBLAIREAU|Rayé de noir et blanc, il vit dans un terrier\nCASTOR|Il construit des barrages\nLIEVRE|Il perd contre la tortue\nSANGLIER|Cochon sauvage\nBICHE|Femelle du cerf\nPONEY|Petit cheval\nARBRE|Il a un tronc et des branches\nFEUILLE|Elle tombe à l'automne\nBRANCHE|Elle part du tronc\nRACINE|Elle plonge dans le sol\nFLEUR|Elle éclot au printemps\nMARGUERITE|Fleur qu'on effeuille\nPAQUERETTE|Petite fleur blanche des prés\nCOQUELICOT|Fleur rouge des champs\nLAVANDE|Fleur violette de Provence\nJASMIN|Fleur au parfum sucré\nORCHIDEE|Fleur exotique et élégante\nTOURNESOL|Il suit le soleil\nLILAS|Arbuste à grappes parfumées\nBOUQUET|Fleurs assemblées\nCHAMPIGNON|Cèpe ou girolle\nMOUSSE|Elle tapisse les pierres\nHERBE|Elle pousse sur la pelouse\nCOLLINE|Petite montagne\nVALLEE|Creux entre deux montagnes\nFALAISE|Paroi de roche en bord de mer\nGROTTE|Cavité dans la roche\nCASCADE|Chute d'eau\nRUISSEAU|Tout petit cours d'eau\nETANG|Petit plan d'eau\nSOURCE|Là où naît la rivière\nVAGUE|Elle roule vers la plage\nMAREE|Elle monte et descend\nCORAIL|Il forme des récifs\nBROUILLARD|Il réduit la visibilité\nTEMPETE|Gros coup de vent\nECLAIR|Il précède le tonnerre\nTONNERRE|Il gronde après l'éclair\nGRELE|Elle tombe en grêlons\nGIVRE|Gel blanc sur les vitres\nAURORE|Lever du jour\nCREPUSCULE|Tombée de la nuit\nPLANETE|Mars ou Vénus\nCOMETE|Astre à longue queue\nGALAXIE|Elle contient des milliards d'étoiles\nMARS|Planète rouge\nSATURNE|Planète aux anneaux\nJUPITER|Plus grosse planète\nTERRE|Notre planète\nPAIN|Il sort du four du boulanger\nPATES|Spaghetti ou tagliatelles\nRIZ|Céréale des paellas\nPIZZA|Spécialité napolitaine\nFONDUE|Plat savoyard au fromage\nRACLETTE|Fromage fondu sur des pommes de terre\nQUICHE|Tarte lorraine\nTARTE|Dessert sur pâte\nCLAFOUTIS|Dessert aux cerises\nMACARON|Pâtisserie colorée\nFLAN|Dessert au lait\nBRIOCHE|Pain doré et moelleux\nBONBON|Sucrerie\nCARAMEL|Sucre brun fondu\nVANILLE|Parfum de glace\nGLACE|Dessert froid\nSORBET|Glace sans lait\nNOUGAT|Confiserie aux amandes\nAMANDE|Fruit sec du nougat\nNOISETTE|Fruit sec de l'écureuil\nNOIX|Fruit du noyer\nCHATAIGNE|Fruit du châtaignier\nABRICOT|Fruit orangé à noyau\nPECHE|Fruit au duvet\nPRUNE|Fruit du pruneau\nMELON|Fruit d'été à pépins\nANANAS|Fruit tropical à couronne\nMANGUE|Fruit tropical\nKIWI|Fruit vert à pépins noirs\nFIGUE|Fruit du figuier\nDATTE|Fruit du palmier\nPASTEQUE|Fruit rouge très aqueux\nPERSIL|Herbe aromatique\nBASILIC|Herbe du pesto\nTHYM|Herbe de Provence\nMENTHE|Elle parfume le thé\nPOIVRE|Il pique, sur la table\nSEL|Il assaisonne\nEPICE|Cumin ou paprika\nMOUTARDE|Condiment de Dijon\nVINAIGRE|Il acidule la salade\nHUILE|Olive ou tournesol\nSALADE|Verte, en entrée\nCOURGETTE|Légume vert allongé\nAUBERGINE|Légume violet\nPOIVRON|Légume rouge ou vert\nRADIS|Petit légume rouge\nCHOU|Légume rond à feuilles\nHARICOT|Légume vert en gousse\nLENTILLE|Légume sec du Puy\nEPINARD|Légume de Popeye\nCELERI|Légume en branche\nPOTIRON|Gros légume orange d'Halloween\nNAVET|Légume racine blanc\nARTICHAUT|Légume dont on mange le cœur\nCOMPOTE|Fruits cuits en purée\nPUREE|Pommes de terre écrasées\nFRITE|Elle accompagne le steak\nSANDWICH|Pain garni\nJAMBON|Charcuterie rose\nSAUCISSON|Charcuterie sèche\nOMELETTE|Plat d'œufs battus\nCIDRE|Boisson de pommes\nBIERE|Boisson de houblon\nJUS|Boisson de fruit pressé\nEAU|Boisson indispensable\nTISANE|Infusion de plantes\nATHENES|Capitale de la Grèce\nVIENNE|Capitale de l'Autriche\nBRUXELLES|Capitale de la Belgique\nAMSTERDAM|Capitale des Pays-Bas\nDUBLIN|Capitale de l'Irlande\nOSLO|Capitale de la Norvège\nSTOCKHOLM|Capitale de la Suède\nMOSCOU|Capitale de la Russie\nPEKIN|Capitale de la Chine\nWASHINGTON|Capitale des États-Unis\nOTTAWA|Capitale du Canada\nLIMA|Capitale du Pérou\nCAIRE|Capitale de l'Égypte\nRABAT|Capitale du Maroc\nTUNIS|Capitale de la Tunisie\nALGER|Capitale de l'Algérie\nESPAGNE|Pays de la paella\nGRECE|Pays du Parthénon\nPORTUGAL|Pays du fado\nBELGIQUE|Pays des frites et de la bière\nALLEMAGNE|Pays de Berlin\nANGLETERRE|Pays de Big Ben\nIRLANDE|Île verte\nNORVEGE|Pays des fjords\nSUEDE|Pays d'Ikea\nMAROC|Pays de Marrakech\nTUNISIE|Pays de Carthage\nSENEGAL|Pays de Dakar\nINDE|Pays du Taj Mahal\nCHINE|Pays de la Grande Muraille\nMEXIQUE|Pays des tacos\nPEROU|Pays du Machu Picchu\nCUBA|Île des Caraïbes\nAUSTRALIE|Pays des kangourous\nALPES|Chaîne du mont Blanc\nPYRENEES|Chaîne entre France et Espagne\nVOSGES|Massif de l'Est\nBORDEAUX|Ville du vin\nSTRASBOURG|Capitale de l'Alsace\nRENNES|Capitale de la Bretagne\nDIJON|Ville de la moutarde\nROUEN|Ville de Jeanne d'Arc\nAVIGNON|Ville du pont et du festival\nCANNES|Ville de son festival de cinéma\nARLES|Ville romaine du Rhône\nBREST|Port du Finistère\nCALAIS|Port face à l'Angleterre\nBIARRITZ|Station de surf basque\nMONACO|Principauté de la Riviera\nANDORRE|Principauté pyrénéenne\nAMAZONIE|Immense forêt d'Amérique du Sud\nSAHARA|Plus grand désert chaud\nATLANTIQUE|Océan entre Europe et Amérique\nPACIFIQUE|Plus grand océan\nMANCHE|Mer entre France et Angleterre\nEQUATEUR|Ligne qui coupe la Terre en deux\nROUSSEAU|Philosophe du « Contrat social »\nBALZAC|Auteur de « La Comédie humaine »\nZOLA|Auteur de « Germinal »\nCAMUS|Auteur de « L'Étranger »\nPROUST|Auteur de « La Recherche du temps perdu »\nDUMAS|Auteur des « Trois Mousquetaires »\nVERNE|Auteur de « Vingt mille lieues sous les mers »\nRACINE|Auteur de « Phèdre »\nSARTRE|Philosophe de l'existentialisme\nPASTEUR|Inventeur du vaccin contre la rage\nCURIE|Marie, double prix Nobel\nEINSTEIN|Physicien de la relativité\nNEWTON|Il a vu tomber une pomme\nDARWIN|Père de l'évolution\nMOZART|Compositeur de « La Flûte enchantée »\nBACH|Compositeur allemand baroque\nCHOPIN|Pianiste polonais romantique\nDEBUSSY|Compositeur de « Clair de lune »\nMONET|Peintre des nymphéas\nPICASSO|Peintre de « Guernica »\nDALI|Peintre aux moustaches célèbres\nRENOIR|Peintre impressionniste\nREMBRANDT|Peintre de la « Ronde de nuit »\nCHARLEMAGNE|Empereur à la barbe fleurie\nCLOVIS|Premier roi des Francs\nVERCINGETORIX|Chef gaulois vaincu à Alésia\nASTERIX|Héros gaulois à la potion magique\nOBELIX|Il est tombé dans la marmite\nTINTIN|Reporter à la houppe\nBASTILLE|Prison prise en 1789\nVERSAILLES|Château du Roi-Soleil\nCHATEAU|Demeure fortifiée\nCATHEDRALE|Notre-Dame en est une\nEIFFEL|Ingénieur de la tour de Paris\nPYRAMIDE|Tombeau des pharaons\nSPHINX|Monstre à tête humaine d'Égypte\nMOMIE|Pharaon embaumé\nROI|Il porte une couronne\nREINE|Épouse du roi\nPRINCE|Fils du roi\nCHEVALIER|Il défendait le château\nDRAGON|Monstre qui crache du feu\nFEE|Elle a une baguette magique\nSORCIERE|Elle a un balai et un chaudron\nPIRATE|Il écume les mers\nTRESOR|Coffre des pirates\nCIRQUE|Chapiteau et clowns\nCLOWN|Il fait rire au cirque\nMAGICIEN|Il sort un lapin de son chapeau\nCONTE|Histoire de fées\nFABLE|Récit de La Fontaine\nCHANSON|On la chante\nORCHESTRE|Musiciens sous la baguette du chef\nCHORALE|Groupe de chanteurs\nHARPE|Instrument à cordes pincées\nTROMPETTE|Cuivre de fanfare\nSAXOPHONE|Cuivre du jazz\nACCORDEON|Instrument des bals musette\nBATTERIE|Instrument du rock\nALBUM|Disque ou recueil de photos\nPHOTO|Image prise à l'appareil\nSCULPTEUR|Artiste du marbre\nAQUARELLE|Peinture légère à l'eau\nTABLEAU|Œuvre accrochée au mur\nDESSIN|Fait au crayon\nCRAYON|Il se taille\nGOMME|Elle efface\nREGLE|Elle trace des lignes droites\nCISEAUX|Ils coupent le papier\nCOLLE|Elle fait adhérer\nPAPIER|Feuille blanche\nCANAPE|Siège pour plusieurs\nFAUTEUIL|Siège confortable à accoudoirs\nTAPIS|Il couvre le sol\nRIDEAU|Il masque la fenêtre\nARMOIRE|Meuble à vêtements\nCOMMODE|Meuble à tiroirs\nETAGERE|Planche pour ranger les livres\nBALAI|Il sert à nettoyer le sol\nASPIRATEUR|Il avale la poussière\nAIGUILLE|Elle porte le fil\nBOUTON|Il ferme la chemise\nLAINE|Elle sert à tricoter\nTRICOT|Pull fait aux aiguilles\nCHAUSSON|Pantoufle\nPULL|Il tient chaud\nMANTEAU|Il protège du froid\nPARAPLUIE|Il protège de la pluie\nLUNETTES|Elles corrigent la vue\nBIJOU|Collier ou bague\nCOLLIER|Il se porte au cou\nBAGUE|Elle se met au doigt\nPARFUM|Flacon odorant\nSAVON|Il mousse sous la douche\nBAIGNOIRE|On y prend un bain\nSERVIETTE|Elle sèche les mains\nVALISE|Bagage de voyage\nPANIER|Il sert à cueillir\nBOUTEILLE|Contenant à goulot\nVERRE|On y boit\nTASSE|Elle contient le café\nASSIETTE|On y mange\nFOURCHETTE|Couvert à dents\nCUILLERE|Couvert pour la soupe\nCOUTEAU|Il coupe\nCASSEROLE|Elle chauffe sur le feu\nPOELE|Elle fait sauter les crêpes\nFOUR|Il cuit le gâteau\nFRIGO|Il garde au frais\nTHEIERE|Elle sert le thé\nBOUGIE|Elle s'éteint d'un souffle\nCADEAU|On l'offre pour un anniversaire\nFETE|Moment de joie partagée\nNOEL|Fête du 25 décembre\nPAQUES|Fête des œufs en chocolat\nANNIVERSAIRE|On le fête chaque année\nBALLON|Il gonfle et s'envole\nSOURIRE|Il illumine un visage\nCALENDRIER|Il donne les jours\nHIVER|Saison du froid\nETE|Saison des vacances\nAUTOMNE|Saison des feuilles mortes\nPRINTEMPS|Saison des fleurs\nJANVIER|Premier mois\nMARDI|Jour après lundi\nDIMANCHE|Jour de repos\nMINUTE|Soixante secondes\nSIECLE|Cent ans\nMETRO|Train sous la ville\nTRAM|Il roule dans la rue sur des rails\nCAMION|Poids lourd\nMOTO|Deux-roues à moteur\nTRACTEUR|Engin du fermier\nFUSEE|Elle va dans l'espace\nPORT|Abri des bateaux\nGARE|Là où s'arrêtent les trains\nPONT|Il enjambe la rivière\nTUNNEL|Il traverse la montagne\nROUTE|Elle mène quelque part\nFOOTBALL|Sport à onze joueurs\nBASKET|Sport du panier\nHANDBALL|Sport de balle à la main\nNATATION|Crawl et brasse\nJUDO|Art martial japonais\nBOXE|Sport de gants\nCYCLISME|Le Tour de France en est un\nCOURSE|Elle oppose des coureurs\nMARATHON|Course de 42 kilomètres\nECHECS|Jeu de roi et de dame\nDAMES|Jeu de pions sur damier\nCARTES|Jeu de 52\nLOTO|Jeu de numéros\nPUZZLE|Casse-tête en morceaux\nDOMINO|Jeu de tuiles à points\nPETANQUE|Jeu de boules du Sud\nAMOUR|Sentiment tendre\nSOMMEIL|Repos de la nuit\nBONHEUR|Joie profonde\nCALME|Sans agitation\nCOURAGE|Il en faut pour affronter le danger\nSAGESSE|Qualité du vieux sage\nMEMOIRE|Elle retient les souvenirs\nSOUVENIR|Il vient du passé\nHISTOIRE|Récit du passé\nPAYS|Territoire d'une nation\nVILLE|Elle a des rues et des quartiers\nVILLAGE|Petite commune\nMAIRIE|Bâtiment du maire\nEGLISE|Lieu de culte au clocher\nCLOCHE|Elle sonne à l'église\nMARCHE|On y achète fruits et légumes\nBOUTIQUE|Petit magasin\nBANQUE|Elle garde l'argent\nARGENT|Monnaie\nEURO|Monnaie européenne\nPRIX|Montant à payer\nVOYAGE|Déplacement lointain\nVACANCES|Congés d'été\nCAMPING|Vacances sous la tente\nTENTE|Abri en toile\nHOTEL|On y réserve une chambre\nCARTE|Elle montre le chemin\nBOUSSOLE|Elle indique le nord\nNORD|Direction opposée au sud\nSUD|Direction du soleil à midi\nEST|Où le soleil se lève\nOUEST|Où le soleil se couche`.split(\"\\n\").map(s=>s.split(\"|\"));\nfunction gen(l){\n const nW=Math.min(26,8+Math.floor(l/3)),mx=Math.min(11,5+Math.floor(l/8)),N=31;let best=null;\n for(let t=0;t<12;t++){\n  const g=Array.from({length:N},()=>Array(N).fill(\"\")),W=[];\n  const pool=B.filter(x=>x[0].length<=mx).sort(()=>Math.random()-.5).slice(0,nW*3).sort((a,b)=>b[0].length-a[0].length);\n  const ok=(a,r,c,d)=>{\n   const dr=d?1:0,dc=d?0:1,n=a.length;\n   if(r<0||c<0||r+dr*(n-1)>=N||c+dc*(n-1)>=N)return -1;\n   const pr=r-dr,pc=c-dc,nr=r+dr*n,nc=c+dc*n;\n   if((g[pr]&&g[pr][pc])||(g[nr]&&g[nr][nc]))return -1;\n   let x=0;\n   for(let i=0;i<n;i++){const y=r+dr*i,z=c+dc*i,v=g[y][z];\n    if(v){if(v!=a[i])return -1;x++}\n    else if((g[y+dc]&&g[y+dc][z+dr])||(g[y-dc]&&g[y-dc][z-dr]))return -1}\n   return x<n?x:-1};\n  for(const [a,k] of pool){\n   if(W.length>=nW)break;\n   if(!W.length){const c=Math.floor((N-a.length)/2),r=15;W.push({a,k,r,c,d:0});for(let i=0;i<a.length;i++)g[r][c+i]=a[i];continue}\n   const cand=[];\n   for(let r=0;r<N;r++)for(let c=0;c<N;c++){const v=g[r][c];if(!v)continue;\n    for(let i=0;i<a.length;i++)if(a[i]==v)for(let d=0;d<2;d++){\n     const rr=r-(d?i:0),cc=c-(d?0:i);if(ok(a,rr,cc,d)>0)cand.push([rr,cc,d])}}\n   if(!cand.length)continue;\n   const [r,c,d]=cand[Math.floor(Math.random()*cand.length)];\n   W.push({a,k,r,c,d});for(let i=0;i<a.length;i++)g[r+(d?i:0)][c+(d?0:i)]=a[i];\n  }\n  if(!best||W.length>best.length)best=W;\n  if(W.length>=nW)break;\n }\n const r0=Math.min(...best.map(w=>w.r)),c0=Math.min(...best.map(w=>w.c));\n best.forEach(w=>{w.r-=r0;w.c-=c0});\n let H=0,C=0;best.forEach(w=>{H=Math.max(H,w.r+(w.d?w.a.length:1));C=Math.max(C,w.c+(w.d?1:w.a.length))});\n const keys={};let n=0;\n best.slice().sort((x,y)=>x.r-y.r||x.c-y.c).forEach(w=>{const k=w.r+\",\"+w.c;if(!keys[k])keys[k]=++n;w.n=keys[k]});\n return {W:best,H,C,E:Array.from({length:H},()=>Array(C).fill(\"\")),h:0,v:3};\n}\n\nconst $=id=>document.getElementById(id);\nlet S=(()=>{try{return JSON.parse(localStorage.getItem(\"ff1\"))}catch(e){return null}})()||{lvl:1,hints:5,pz:null};\nlet P,CL,CK,sel,dir=0,bad=new Set(),cells=[];\nconst sv=()=>{try{S.pz=P;localStorage.setItem(\"ff1\",JSON.stringify(S))}catch(e){}};\nconst wc=w=>Array.from(w.a,(_,j)=>[w.r+(w.d?j:0),w.c+(w.d?0:j)]);\nfunction mk(l){const p=gen(l);p.W.forEach(w=>{w.r++;w.c++});p.H++;p.C++;p.E=Array.from({length:p.H},()=>Array(p.C).fill(\"\"));p.v=4;return p}\nfunction build(){\n CL=Array.from({length:P.H},()=>Array(P.C).fill(null));CK=Array.from({length:P.H},()=>Array(P.C).fill(null));\n P.W.forEach((w,i)=>{wc(w).forEach(([r,c],j)=>{const x=CL[r][c]||(CL[r][c]={a:w.a[j],wd:[-1,-1]});x.wd[w.d]=i});\n  const r=w.r-(w.d?1:0),c=w.c-(w.d?0:1);(CK[r][c]||(CK[r][c]=[-1,-1]))[w.d]=i});\n const g=$(\"g\");g.style.setProperty(\"--n\",P.C);g.innerHTML=\"\";cells=[];\n for(let r=0;r<P.H;r++){cells[r]=[];for(let c=0;c<P.C;c++){const d=document.createElement(\"div\");d.dataset.r=r;d.dataset.c=c;g.appendChild(d);cells[r][c]=d}}\n}\nfunction cw(){let i=CL[sel.r][sel.c].wd[dir];if(i<0){dir^=1;i=CL[sel.r][sel.c].wd[dir]}return P.W[i]}\nfunction draw(){\n const w=cw(),inw=new Set(wc(w).map(p=>p.join()));\n for(let r=0;r<P.H;r++)for(let c=0;c<P.C;c++){\n  const d=cells[r][c],x=CL[r][c],k=CK[r][c],key=r+\",\"+c;\n  if(x){d.className=\"c\"+(inw.has(key)?\" hl\":\"\")+(r==sel.r&&c==sel.c?\" sel\":\"\")+(bad.has(key)?\" bad\":\"\");d.textContent=P.E[r][c]}\n  else if(k){d.className=\"c k\";d.innerHTML=k.map((i,j)=>i<0?\"\":`<span data-i=\"${i}\">${P.W[i].k}<i class=\"${j?\"d\":\"r\"}\">${j?\"▼\":\"▶\"}<\/i><\/span>`).join(\"\")}\n  else d.className=\"c k0\"}\n $(\"cl\").textContent=(w.d?\"↓ \":\"→ \")+w.k+\" (\"+w.a.length+\")\";\n $(\"lv\").textContent=\"Niveau \"+S.lvl;$(\"hn\").textContent=\"💡 \"+S.hints;\n cells[sel.r][sel.c].scrollIntoView({block:\"nearest\",inline:\"nearest\"});\n}\nfunction fresh(){P=mk(S.lvl);build();bad.clear();const w=P.W[0];sel={r:w.r,c:w.c};dir=w.d;sv();draw()}\nfunction msg(t){const e=$(\"t\");e.textContent=t;e.classList.add(\"on\");setTimeout(()=>e.classList.remove(\"on\"),1800)}\nfunction go(w){const l=wc(w),f=l.find(([r,c])=>!P.E[r][c])||l[0];sel={r:f[0],c:f[1]};dir=w.d;draw()}\nfunction move(s){const o=P.W.map((_,i)=>i).sort((a,b)=>P.W[a].r-P.W[b].r||P.W[a].c-P.W[b].c||P.W[a].d-P.W[b].d);go(P.W[o[(o.indexOf(P.W.indexOf(cw()))+s+o.length)%o.length]])}\nfunction step(s){const l=wc(cw()),i=l.findIndex(([r,c])=>r==sel.r&&c==sel.c),n=l[i+s];if(n)sel={r:n[0],c:n[1]}}\nfunction type(ch){P.E[sel.r][sel.c]=ch;bad.delete(sel.r+\",\"+sel.c);step(1);sv();draw();win()}\nfunction back(){if(P.E[sel.r][sel.c])P.E[sel.r][sel.c]=\"\";else{step(-1);P.E[sel.r][sel.c]=\"\"}bad.delete(sel.r+\",\"+sel.c);sv();draw()}\nfunction win(){\n for(let r=0;r<P.H;r++)for(let c=0;c<P.C;c++)if(CL[r][c]&&P.E[r][c]!=CL[r][c].a)return;\n S.lvl++;S.hints+=3;S.pz=null;try{localStorage.setItem(\"ff1\",JSON.stringify(S))}catch(e){}\n draw();$(\"ot\").textContent=\"Bravo ! 🎉\";$(\"op\").textContent=\"Niveau \"+(S.lvl-1)+\" terminé. +3 indices !\";$(\"ov\").hidden=false}\nfunction spend(n){if(S.hints<n){msg(\"Plus assez d'indices : termine une grille pour en gagner\");return false}S.hints-=n;return true}\n$(\"g\").onclick=e=>{const d=e.target.closest(\".c\");if(!d)return;const r=+d.dataset.r,c=+d.dataset.c,x=CL[r][c],k=CK[r][c];\n if(x){if(r==sel.r&&c==sel.c){if(x.wd[0]>=0&&x.wd[1]>=0)dir^=1}else{sel={r,c};if(x.wd[dir]<0)dir^=1}draw()}\n else if(k){const sp=e.target.closest(\"span\");go(P.W[sp?+sp.dataset.i:k.find(v=>v>=0)])}};\n$(\"pv\").onclick=()=>move(-1);$(\"nx\").onclick=()=>move(1);\n$(\"bl\").onclick=()=>{const x=CL[sel.r][sel.c];if(P.E[sel.r][sel.c]==x.a)return msg(\"Cette lettre est déjà bonne\");if(spend(1)){P.E[sel.r][sel.c]=x.a;bad.delete(sel.r+\",\"+sel.c);step(1);sv();draw();win()}};\n$(\"bw\").onclick=()=>{const w=cw(),l=wc(w);if(l.every(([r,c])=>P.E[r][c]==CL[r][c].a))return msg(\"Ce mot est déjà bon\");if(spend(3)){l.forEach(([r,c])=>{P.E[r][c]=CL[r][c].a;bad.delete(r+\",\"+c)});sv();draw();win()}};\n$(\"bc\").onclick=()=>{if(!spend(1))return;bad.clear();let n=0;\n for(let r=0;r<P.H;r++)for(let c=0;c<P.C;c++)if(CL[r][c]&&P.E[r][c]&&P.E[r][c]!=CL[r][c].a){bad.add(r+\",\"+c);n++}\n msg(n?n+\" lettre(s) incorrecte(s)\":\"Tout est correct jusqu'ici\");sv();draw()};\n$(\"bp\").onclick=()=>{if(confirm(\"Passer cette grille et en commencer une autre ?\"))fresh()};\n$(\"on\").onclick=()=>{$(\"ov\").hidden=true;fresh()};\n[\"AZERTYUIOP\",\"QSDFGHJKLM\",\"WXCVBN\"].forEach((row,i)=>{\n const d=document.createElement(\"div\");d.className=\"kr\";\n [...row].forEach(l=>{const b=document.createElement(\"button\");b.textContent=l;b.onclick=()=>type(l);d.appendChild(b)});\n if(i==2){const b=document.createElement(\"button\");b.textContent=\"⌫\";b.className=\"w\";b.setAttribute(\"aria-label\",\"Effacer\");b.onclick=back;d.appendChild(b)}\n $(\"kb\").appendChild(d)});\ndocument.addEventListener(\"keydown\",e=>{if(e.ctrlKey||e.metaKey||!$(\"ov\").hidden)return;\n if(e.key==\"Backspace\")back();else{const l=e.key.normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g,\"\").toUpperCase();if(/^[A-Z]$/.test(l))type(l)}});\nif(S.pz&&S.pz.W&&S.pz.v==4){P=S.pz;build();const w=P.W[0];sel={r:w.r,c:w.c};dir=w.d;draw()}else fresh();\n<\/script><\/body><\/html>\n"};
-const $=id=>document.getElementById(id);
-const rd=k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}};
-function stats(){const a=rd("mm1"),b=rd("ff1");$("sm").textContent="Niveau "+(a&&a.lvl||1);$("sf").textContent="Niveau "+(b&&b.lvl||1)}
-function openG(k){$("gt").textContent=k=="m"?"Mots mêlés":"Mots fléchés";$("fr").srcdoc=G[k];$("hm").hidden=true;$("gm").hidden=false}
-function home(){$("gm").hidden=true;$("fr").removeAttribute("srcdoc");$("hm").hidden=false;stats()}
-$("om").onclick=()=>openG("m");$("of").onclick=()=>openG("f");$("bk").onclick=home;
-stats();
-(()=>{try{const c=document.createElement("canvas");c.width=c.height=180;const x=c.getContext("2d");
- const g=x.createLinearGradient(0,0,180,180);g.addColorStop(0,"#3b6fe0");g.addColorStop(1,"#e0589f");x.fillStyle=g;x.fillRect(0,0,180,180);
- x.font="800 40px system-ui,sans-serif";x.textAlign="center";x.textBaseline="middle";const L="MXA,LOZ,ETT".split(",");
- for(let r=0;r<3;r++)for(let k=0;k<3;k++){x.fillStyle=r==k?"#ffd54f":"#fff";x.beginPath();x.roundRect(20+k*48,20+r*48,44,44,10);x.fill();x.fillStyle="#1b2a41";x.fillText(L[r][k],42+k*48,43+r*48)}
- const u=c.toDataURL("image/png");["apple-touch-icon","icon"].forEach(r=>{const l=document.createElement("link");l.rel=r;l.href=u;document.head.appendChild(l)})}catch(e){}})();
+const BANK=`AS:Carte maîtresse
+AI:Mammifère paresseux
+IF:Arbre des cimetières
+TU:Pronom de la deuxième personne
+LU:Parcouru du regard
+ELU:Choisi par les urnes
+OSE:Il a du culot
+RIT:Il éclate de joie
+SOT:Peu intelligent
+TOI:Pronom tonique
+VIS:Elle serre
+VOL:Il traverse les airs
+ZOO:Parc d’animaux
+ANE:Bête de somme
+BAR:Poisson ou débit de boissons
+BEC:Il picore
+BIS:Une seconde fois
+BLE:Céréale des moissons
+BOL:Récipient à café
+BUS:Transport urbain
+CAP:Pointe de terre
+CRI:Appel perçant
+DIX:Nombre rond
+DUO:Deux chanteurs
+ERE:Période historique
+FEE:Marraine de Cendrillon
+FOU:Pièce d’échecs
+GAG:Effet comique
+GIN:Alcool de genièvre
+ICI:En ce lieu
+LIE:Dépôt du vin
+LYS:Fleur de France
+MAT:Fin aux échecs
+NID:Abri d’oiseau
+NOM:Désignation
+OUI:Réponse positive
+PIN:Conifère
+SUE:Transpire
+TEL:Pareil
+TIC:Mouvement involontaire
+AGE:Nombre d’années
+URNE:Elle reçoit les bulletins
+OPUS:Œuvre numérotée
+OBOLE:Petite offrande
+IDOLE:Objet d’adoration
+ETUDE:Travail d’approfondissement
+ERRER:Marcher sans but
+FRITE:Avec le steak
+RABAT:Capitale du Maroc
+ECOLE:On y apprend
+CORSE:Île de beauté
+POEME:Il est fait de vers
+LOIRE:Plus long fleuve de France
+SPORT:Football ou tennis
+NAUTILUS:Navire de Nemo
+PARIS:Ville Lumière
+ROME:Capitale de l’Italie
+LYON:Ville des Gaules
+BREST:Port breton
+ALGER:Capitale d’Algérie
+TUNIS:Capitale de Tunisie
+DAKAR:Capitale du Sénégal
+BERNE:Capitale suisse
+OSLO:Capitale de Norvège
+MADRID:Capitale d’Espagne
+LONDRES:Capitale anglaise
+SEINE:Fleuve parisien
+RHONE:Fleuve de Lyon
+GARONNE:Fleuve de Toulouse
+ALPES:Chaîne de monts
+ETNA:Volcan sicilien
+NIL:Fleuve d’Égypte
+LUNE:Astre de la nuit
+SOLEIL:Étoile du jour
+MARS:Planète rouge
+TERRE:Notre planète
+ORAGE:Éclairs et tonnerre
+SEL:Il relève le goût
+CAFE:Boisson du matin
+THE:Boisson anglaise
+VIN:Jus de raisin fermenté
+LIT:On y dort
+CLE:Elle ferme la porte
+TOIT:Il couvre la maison
+PONT:Sur la rivière
+MER:Elle est salée
+LAC:Étendue d’eau douce
+ILE:Terre entourée d’eau
+FORET:Beaucoup d’arbres
+MUSIQUE:Elle adoucit les mœurs
+PIANO:Il a des touches
+GUITARE:Elle a six cordes
+DANSE:Valse ou tango
+FILM:On le voit au cinéma
+THEATRE:On y joue des pièces
+PEINTRE:Il utilise des pinceaux
+ROUGE:Couleur du feu
+BLEU:Couleur du ciel
+VERT:Couleur de l’herbe
+JAUNE:Couleur du citron
+NOIR:Couleur du deuil
+BLANC:Couleur de la neige
+FER:Il rouille
+ARGENT:Métal ou monnaie
+HIVER:Saison du froid
+ETE:Saison chaude
+MAI:Mois du muguet
+JUIN:Début de l’été
+AVRIL:Mois des poissons
+LUNDI:Début de semaine
+NOEL:Fête de décembre
+LOUVRE:Musée de la Joconde
+EIFFEL:Sa tour est à Paris
+MONET:Peintre des nymphéas
+ASTERIX:Héros gaulois
+TINTIN:Reporter à la houppe
+TENNIS:Sport sur court
+RUGBY:Sport à ballon ovale
+GOLF:Sport à trous
+SKI:Sport de neige
+NAGE:Sport de piscine
+NEZ:Il sent
+OU:Choix entre deux
+IL:Pronom masculin
+ON:Pronom indéfini
+UN:Premier nombre
+SI:Note de musique
+NU:Sans vêtement
+OR:Métal précieux
+AN:Douze mois
+LA:Note de musique
+RE:Note après do
+MI:Note de musique
+DO:Première note
+LE:Article masculin
+ARC:Arme du chasseur
+AIR:On le respire
+AGE:Nombre d’années
+BAL:Soirée dansante
+BUT:Objectif
+BOA:Serpent
+CAR:Autocar
+COU:Il porte la tête
+DOS:Il est derrière
+DON:Cadeau
+EAU:Elle est potable
+EPI:Tige de blé
+EST:Point cardinal
+FEU:Il brûle
+IRE:Colère
+JEU:On y joue
+OIE:Oiseau de ferme
+PAS:Enjambée
+PIC:Oiseau ou sommet
+RAT:Rongeur
+RUE:Elle a des maisons
+SAC:Il contient
+SOL:Terre
+SUD:Point cardinal
+TAS:Amas
+TOP:Signal de départ
+USE:Il s’abîme
+VUE:Sens de l’œil
+ZEN:Calme
+BOIS:Matière de l’arbre
+CHER:Coûteux
+DENT:Elle mord
+DIRE:Parler
+FETE:Jour de joie
+FILS:Garçon de ses parents
+GANT:Il protège la main
+IDEE:Pensée soudaine
+JOUR:Il y a la nuit après
+MERE:Maman
+MIEL:Produit des abeilles
+PERE:Papa
+PLAT:Il est dans l’assiette
+PRIX:Ce que ça coûte
+RIRE:Éclater de joie
+ROUE:Elle tourne
+TETE:Elle porte le chapeau
+TOUR:Voyage ou monument
+VIDE:Sans rien dedans
+VOIX:Elle chante
+ZERO:Rien du tout
+BIJOU:Il brille au doigt
+CHAMP:Il est cultivé
+DROIT:Pas gauche
+ECRAN:On y regarde un film
+FAMILLE:Parents et enfants
+JARDIN:Il a des fleurs
+PLUME:Elle vient de l’oiseau
+SOURIS:Elle craint le chat
+TABLEAU:Œuvre du peintre
+VOYAGE:Départ en vacances`.split('\n').map(l=>{const i=l.indexOf(':');return{a:l.slice(0,i),t:l.slice(i+1)}});
+const HARD=`SAHARA:Désert africain
+ANDES:Cordillère sud-américaine
+URAL:Monts de Russie
+TIBET:Toit du monde
+NEPAL:Pays de l’Everest
+KENYA:Pays de Nairobi
+LIMA:Capitale du Pérou
+QUITO:Capitale de l’Équateur
+OSAKA:Ville japonaise
+KYOTO:Ancienne capitale nippone
+VENISE:Cité des Doges
+FLORENCE:Berceau de la Renaissance
+TURIN:Ville du Piémont
+GENES:Port italien
+PRAGUE:Capitale tchèque
+VIENNE:Capitale autrichienne
+ATHENES:Ville du Parthénon
+SPARTE:Rivale d’Athènes
+CARTHAGE:Ville d’Hannibal
+BYZANCE:Ancienne Constantinople
+NORMANDIE:Terre du Débarquement
+ALSACE:Région de Strasbourg
+BRETAGNE:Terre des menhirs
+PROVENCE:Région des lavandes
+SAVOIE:Département alpin
+BOURGOGNE:Terre de grands crus
+DORDOGNE:Rivière du Périgord
+MEUSE:Fleuve lorrain
+MOSELLE:Rivière de Metz
+DANUBE:Fleuve de Vienne
+VOLGA:Fleuve russe
+AMAZONE:Fleuve géant d’Amérique
+TAMISE:Fleuve de Londres
+ELBE:Fleuve de Hambourg
+TIBRE:Fleuve de Rome
+CESAR:Il franchit le Rubicon
+CLOVIS:Roi franc baptisé
+VERDUN:Bataille de 1916
+AUSTERLITZ:Victoire de 1805
+WATERLOO:Défaite de 1815
+TROIE:Cité d’Hector
+ULYSSE:Héros de l’Odyssée
+ACHILLE:Héros au talon fragile
+ICARE:Fils de Dédale
+ZEUS:Maître de l’Olympe
+ATHENA:Déesse de la sagesse
+APOLLON:Dieu des arts
+VENUS:Déesse de l’amour
+NEPTUNE:Dieu des mers
+MINOTAURE:Monstre du labyrinthe
+PHARAON:Souverain d’Égypte
+SPHINX:Gardien de Gizeh
+CLEOPATRE:Reine d’Égypte
+RAMSES:Pharaon bâtisseur
+MAYA:Peuple du Yucatán
+INCA:Empire du Machu Picchu
+AZTEQUE:Peuple de Tenochtitlan
+VIKING:Navigateur nordique
+SAMOURAI:Guerrier japonais
+SHOGUN:Chef militaire nippon
+CANDIDE:Conte de Voltaire
+GERMINAL:Roman de Zola
+ZOLA:Auteur de «J’accuse»
+BALZAC:Père du Père Goriot
+PROUST:Auteur de la «Recherche»
+CAMUS:Auteur de «L’Étranger»
+SARTRE:Philosophe de «La Nausée»
+RACINE:Auteur de «Phèdre»
+CORNEILLE:Auteur du «Cid»
+VOLTAIRE:Philosophe des Lumières
+DIDEROT:Père de l’Encyclopédie
+MOLIERE:Père de Tartuffe
+VERLAINE:Poète de «Saturne»
+RIMBAUD:Poète du «Bateau ivre»
+BAUDELAIRE:Poète des «Fleurs du mal»
+OVIDE:Poète des Métamorphoses
+HOMERE:Aède de l’Iliade
+DANTE:Auteur de la «Divine Comédie»
+CERVANTES:Père de Don Quichotte
+HAMLET:Prince du Danemark
+OTHELLO:Maure de Venise
+MACBETH:Tragédie écossaise
+MANET:Auteur d’«Olympia»
+DEGAS:Peintre de danseuses
+RENOIR:Peintre de «La Loge»
+CEZANNE:Peintre de la Sainte-Victoire
+GAUGUIN:Peintre de Tahiti
+PICASSO:Cubiste espagnol
+DALI:Maître du surréalisme
+MIRO:Peintre catalan
+MATISSE:Chef de file des fauves
+RODIN:Sculpteur du «Penseur»
+ORSAY:Musée de l’ancienne gare
+MOZART:Auteur de «La Flûte enchantée»
+BACH:Maître de la fugue
+RAVEL:Compositeur du «Boléro»
+DEBUSSY:Auteur de «Clair de lune»
+CHOPIN:Pianiste polonais
+VERDI:Auteur de «La Traviata»
+PUCCINI:Auteur de «Tosca»
+WAGNER:Compositeur du «Ring»
+SOLFEGE:Lecture des notes
+OPERETTE:Genre léger chanté
+SONATE:Pièce instrumentale
+ARIA:Air d’opéra
+TENOR:Voix d’homme aiguë
+VIOLON:Instrument de Paganini
+HARPE:Instrument à cordes pincées
+FLUTE:Instrument à vent
+HAUTBOIS:Instrument à anche double
+ATOME:Particule de Démocrite
+PROTON:Particule positive
+NEUTRON:Particule neutre
+PHOTON:Grain de lumière
+QUARK:Constituant du proton
+ION:Atome chargé
+ACIDE:Contraire de base
+OXYDE:Fer rouillé, par exemple
+AZOTE:Gaz majoritaire de l’air
+HELIUM:Gaz des ballons
+NEON:Gaz des enseignes
+ARGON:Gaz rare
+RADON:Gaz radioactif
+SODIUM:Métal du sel
+CALCIUM:Élément des os
+CARBONE:Base de la vie
+ZINC:Métal galvanisant
+ETAIN:Métal des soudures
+PLOMB:Métal lourd
+MERCURE:Métal liquide ou planète
+URANIUM:Combustible nucléaire
+GENE:Unité d’hérédité
+CELLULE:Brique du vivant
+NEURONE:Cellule nerveuse
+ENZYME:Catalyseur biologique
+PROTEINE:Molécule des muscles
+VIRUS:Agent infectieux
+OXYGENE:Gaz vital
+ORBITE:Trajectoire d’un astre
+COMETE:Astre à chevelure
+GALAXIE:Voie lactée, par exemple
+SATURNE:Planète à anneaux
+JUPITER:Géante gazeuse
+PULSAR:Étoile à neutrons
+ECLIPSE:Astre masqué
+AURORE:Lueur polaire
+ANGLE:Figure de géométrie
+RAYON:Moitié du diamètre
+CERCLE:Courbe fermée
+CARRE:Quadrilatère régulier
+CUBE:Solide à six faces
+PRISME:Décomposeur de lumière
+SOMME:Résultat d’une addition
+DEGRE:Unité d’angle
+SENAT:Chambre haute
+DEPUTE:Élu à l’Assemblée
+MAIRE:Élu local
+PREFET:Représentant de l’État
+DECRET:Acte du pouvoir exécutif
+TRIBUNAL:Lieu de justice
+JUGE:Arbitre en justice
+AVOCAT:Défenseur au barreau
+HUISSIER:Officier ministériel
+NOTAIRE:Il authentifie les actes
+IMPOT:Prélèvement de l’État
+BUDGET:Prévision de dépenses
+INFLATION:Hausse générale des prix
+DEVISE:Monnaie étrangère ou slogan
+BOURSE:Marché des actions
+HERON:Échassier pêcheur
+CIGOGNE:Oiseau d’Alsace
+RAPACE:Oiseau de proie
+AIGLE:Roi des airs
+HIBOU:Rapace nocturne
+CHOUETTE:Oiseau d’Athéna
+CASTOR:Bâtisseur de barrages
+LYNX:Félin aux oreilles à pinceaux
+PUMA:Félin américain
+JAGUAR:Félin d’Amazonie
+GAZELLE:Antilope gracieuse
+BISON:Bovidé des plaines
+LAMA:Camélidé des Andes
+EMEU:Grand oiseau d’Australie
+KIWI:Oiseau de Nouvelle-Zélande
+CORAIL:Colonie marine
+OURSIN:Hérisson de mer
+MEDUSE:Cnidaire urticant
+THON:Poisson de conserve
+SOLE:Poisson plat
+TRUITE:Poisson de torrent
+BROCHET:Prédateur d’eau douce
+SAULE:Arbre pleureur
+CHENE:Arbre à glands
+HETRE:Arbre de forêt
+TILLEUL:Arbre de tisane
+ORME:Arbre décimé par la graphiose
+LIERRE:Plante grimpante
+SAFRAN:Épice précieuse
+THYM:Herbe de Provence
+BASILIC:Herbe du pistou
+CUMIN:Épice des falafels
+MOUTARDE:Condiment de Dijon
+ECHALOTE:Proche de l’oignon
+CEPE:Champignon recherché
+TRUFFE:Diamant noir
+MORILLE:Champignon alvéolé
+BRIOCHE:Pâtisserie moelleuse
+ECLAIR:Pâtisserie glacée
+CREPE:Mets de la Chandeleur
+FONDUE:Plat savoyard
+RACLETTE:Fromage fondu
+COMTE:Fromage jurassien
+BRIE:Fromage de Meaux
+ROQUEFORT:Fromage bleu
+MUSCADET:Vin nantais
+CHABLIS:Vin blanc de Bourgogne
+CIDRE:Boisson normande
+RHUM:Alcool de canne
+VODKA:Alcool russe
+IDIOME:Parler propre à un peuple
+SYNTAXE:Ordre des mots
+VERBE:Mot d’action
+ADVERBE:Mot invariable
+SUJET:Il fait l’action
+ACCENT:Marque sur une voyelle
+TILDE:Signe de l’espagnol
+SYNONYME:Mot de sens voisin
+ANTONYME:Mot de sens contraire
+ECHO:Son renvoyé
+ENIGME:Question à deviner
+CHARADE:Jeu de mots à deviner
+REBUS:Dessin à déchiffrer
+ALIBI:Preuve d’absence
+INDICE:Piste à suivre
+TEMOIN:Il a vu la scène
+VERDICT:Décision du jury
+PROCES:Affaire jugée
+ESCRIME:Sport de fleuret
+FLEURET:Arme d’escrime
+JUDO:Art martial japonais
+KARATE:Art martial d’Okinawa
+AVIRON:Sport à rames
+POLO:Sport à cheval
+CROQUET:Jeu de maillets
+BRIDGE:Jeu de cartes à enchères
+POKER:Jeu de bluff
+ECHECS:Jeu de roi et reine
+DOMINO:Jeu de plaquettes
+LOTO:Tirage de numéros
+SERVEUR:Machine du réseau
+LOGICIEL:Programme
+PIXEL:Point d’une image
+MODEM:Boîtier de connexion
+CLAVIER:Il a des touches
+RESEAU:Ensemble de nœuds
+ROBOT:Machine articulée
+RADAR:Détecteur d’avions
+LASER:Rayon concentré
+SONAR:Écho sous-marin
+TURBINE:Roue de centrale
+PISTON:Pièce de moteur
+AUBE:Début du jour
+ZENITH:Point culminant
+APOGEE:Sommet
+CLIMAT:Temps moyen d’une région
+MOUSSON:Vent d’Asie
+ALIZE:Vent régulier
+MISTRAL:Vent du Rhône
+TORNADE:Cyclone en entonnoir
+GEYSER:Source jaillissante
+LAGUNE:Étendue d’eau côtière
+FJORD:Bras de mer norvégien
+ATOLL:Île de corail
+DELTA:Embouchure en éventail
+ESTUAIRE:Bouche d’un fleuve
+GLACIER:Fleuve de glace
+CRATERE:Bouche de volcan
+MAGMA:Roche en fusion
+FOSSILE:Vestige préhistorique
+GRANIT:Roche dure
+MARBRE:Pierre de statues
+ARDOISE:Roche des toits
+CALCAIRE:Roche des falaises
+PAYSAGE:Vue de campagne`.split('\n').map(l=>{const i=l.indexOf(':');return{a:l.slice(0,i),t:l.slice(i+1),h:1}});
+{const U=new Map();[...BANK,...HARD].forEach(e=>U.set(e.a,e));BANK.length=0;BANK.push(...U.values())}
+function cand(l,m,min){const pool=BANK.filter(e=>e.a.length>=min),S0=m==='m'?90:150,P=Math.max(1,Math.floor(pool.length/S0)),cyc=Math.floor((l-1)/P),j=(l-1)%P;return shuf(pool,rng(cyc*7919+(m==='m'?5:3))).slice(j*S0,(j+1)*S0)}
+function rng(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function shuf(a,r){a=a.slice();for(let i=a.length;i>1;){const j=Math.floor(r()*i--);[a[i],a[j]]=[a[j],a[i]]}return a}
+function genM(l,N){
+ N=N||Math.min(13,9+(l/8|0));const r=rng(l*7919+1+N*131),n=Math.min(N+4,10+(l/4|0));
+ const D=[[0,1],[1,0],[1,1]];
+ const g=Array.from({length:N},()=>Array(N).fill('')),ws=[];
+ for(const e of shuf(cand(l,'m',5).filter(e=>e.a.length<=Math.min(N-1,10)),r)){
+  if(ws.length>=n)break;
+  for(let k=0;k<150;k++){
+   const [dr,dc]=D[r()*D.length|0],L=e.a.length,R=r()*N|0,C=r()*N|0,er=R+dr*(L-1),ec=C+dc*(L-1);
+   if(er<0||er>=N||ec<0||ec>=N)continue;
+   let ok=1;for(let i=0;i<L;i++){const v=g[R+dr*i][C+dc*i];if(v&&v!==e.a[i]){ok=0;break}}
+   if(!ok)continue;
+   const cs=[];for(let i=0;i<L;i++){g[R+dr*i][C+dc*i]=e.a[i];cs.push([R+dr*i,C+dc*i])}
+   ws.push({a:e.a,cs});break}}
+ const al=ws.map(w=>w.a).join('')+'AEIRSTNL';
+ for(let i=0;i<N;i++)for(let j=0;j<N;j++)if(!g[i][j])g[i][j]=al[r()*al.length|0];
+ return{N,g,ws}}
+function chk(g,W,H,R,C,dr,dc,a,t){
+ const p=g[R][C],f=dr?'d':'r';
+ if(p.k===1||(p.k===2&&p.cl[f]))return-1;
+ if(p.k===2&&(t.length>17||(p.cl.r||p.cl.d).t.length>17))return-1;
+ let x=0;const L=a.length;
+ for(let i=0;i<L;i++){
+  const rr=R+dr*(i+1),cc=C+dc*(i+1);
+  if(rr>=H||cc>=W)return-1;
+  const q=g[rr][cc];
+  if(q.k===1){if(q.ch!==a[i]||q[dr?'v':'h'])return-1;x++}
+  else if(q.k===0){for(const s of[-1,1]){const pr=rr+dc*s,pc=cc+dr*s;if(pr>=0&&pc>=0&&pr<H&&pc<W&&g[pr][pc].k===1)return-1}}
+  else return-1}
+ const er=R+dr*(L+1),ec=C+dc*(L+1);
+ if(er<H&&ec<W&&g[er][ec].k===1)return-1;
+ return x}
+function put(g,W,H,R,C,dr,dc,e){
+ const p=g[R][C];if(p.k!==2){p.k=2;p.cl={}}p.cl[dr?'d':'r']={t:e.t,a:e.a};
+ const cells=[];
+ for(let i=0;i<e.a.length;i++){const rr=R+dr*(i+1),cc=C+dc*(i+1),q=g[rr][cc];q.k=1;q.ch=e.a[i];q[dr?'v':'h']=1;cells.push([rr,cc])}
+ const er=R+dr*(e.a.length+1),ec=C+dc*(e.a.length+1);
+ if(er<H&&ec<W&&g[er][ec].k===0)g[er][ec].k=3;
+ return cells}
+function tryF(seed,W,H,C){
+ const r=rng(seed),g=Array.from({length:H},()=>Array.from({length:W},()=>({k:0}))),ents=[],used=new Set();
+ const pool=shuf(C.filter(e=>e.a.length<=Math.max(W,H)-1),r),big=[...pool.filter(e=>e.h&&e.a.length>=3),...pool.filter(e=>!e.h&&e.a.length>=3)];
+ const add=(R,C,d,e)=>{used.add(e.a);ents.push({R,C,d,a:e.a,t:e.t,cells:put(g,W,H,R,C,d,1-d,e)})};
+ for(const e of big){
+  const c=[];
+  for(const d of[0,1])for(let R=0;R<H;R++)for(let C=0;C<W;C++){const m=chk(g,W,H,R,C,d,1-d,e.a,e.t);if(m>=0)c.push([R,C,d,m])}
+  if(!c.length)continue;
+  const x=c.filter(v=>v[3]>0),q=x.length?x:(ents.length&&r()<.5?[]:c);
+  if(!q.length)continue;
+  const [R,C,d]=q[r()*q.length|0];add(R,C,d,e)}
+ for(let pass=0;pass<4;pass++)for(let R=0;R<H;R++)for(let C=0;C<W;C++){
+  const q=g[R][C];if(q.k===1||(q.k===2&&q.cl.r&&q.cl.d))continue;
+  let best=null;
+  for(const e of pool){if(used.has(e.a))continue;for(const d of[0,1]){const m=chk(g,W,H,R,C,d,1-d,e.a,e.t);if(m>=0&&(!best||m>best.m||(m===best.m&&r()<.25)))best={e,d,m}}}
+  if(best)add(R,C,best.d,best.e)}
+ ents.sort((a,b)=>(a.R*W+a.C)*2+a.d-(b.R*W+b.C)*2-b.d);
+ let n=0,dead=0;for(const row of g)for(const q of row){if(q.k===1)n++;if(q.k===0||q.k===3)dead++}
+ return{W,H,g,ents,n,dead}}
+function genF(l,W,H){
+ W=W||(l<=10?6:7);H=H||W+2;let best=null;const C=cand(l,'f',2);
+ for(let t=0;t<20;t++){const x=tryF(l*104729+t*31+W*977+H*13,W,H,C);if(!best||x.dead<best.dead)best=x;if(x.dead<=W*H*.08)break}
+ return best}
+//@@UI
+const $=id=>document.getElementById(id),KEY='jdm2';
+let S={l:{m:1,f:1},d:{m:0,f:0},h:10,hl:25,hm:25,sv:{},last:'f',day:0,st:0,tip:0};
+try{Object.assign(S,JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const dn=Math.floor(Date.now()/864e5);
+if(S.day!==dn){S.st=S.day===dn-1?S.st+1:1;S.day=dn;save()}
+if(!S.td||S.td.d!==dn)S.td={d:dn,n:0,c:[]};
+(()=>{const c=document.createElement('canvas');c.width=c.height=180;const x=c.getContext('2d'),g=x.createLinearGradient(0,0,180,180);g.addColorStop(0,'#4a63e0');g.addColorStop(1,'#d9529f');x.fillStyle=g;x.fillRect(0,0,180,180);x.fillStyle='#fff';x.font='bold 90px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('Aa',90,98);$('ic').href=c.toDataURL()})();
+let mode,lvl,M,F,tt;
+const show=id=>{document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.id===id))};
+const toast=t=>{const e=$('toast');e.textContent=t;e.style.display='block';clearTimeout(tt);tt=setTimeout(()=>e.style.display='none',1800)};
+const hb=()=>{const L=$('bl'),W=$('bm'),I=$('hi');if(L){L.textContent='Lettre ('+S.hl+')';L.classList.toggle('off',S.hl<1)}if(W){W.textContent='Mot ('+S.hm+')';W.classList.toggle('off',S.hm<1)}if(I){I.textContent='Indice ('+S.hl+')';I.classList.toggle('off',S.hl<1)}};
+const NM={m:'Mots mêlés',f:'Mots fléchés'};
+const I={srch:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/>',pen:'<path d="M4 20l1-5L16 4l4 4L9 19zM14 6l4 4"/>',bulb:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c1 1 1 2 1 3h6c0-1 0-2 1-3a6 6 0 0 0-4-10z"/>',flame:'<path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/>',trophy:'<path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 13v4M8 20h8"/>',target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',sliders:'<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',home:'<path d="M3 11l9-8 9 8M5 9.5V20h5v-6h4v6h5V9.5"/>',check:'<path d="M5 13l4 4L19 7"/>'};
+const ART={srch:'<svg viewBox="0 0 64 64"><circle cx="27" cy="27" r="17" fill="rgba(255,255,255,.35)" stroke="#fff" stroke-width="5"/><path d="M40 40L56 56" stroke="#4a2a14" stroke-width="8" stroke-linecap="round"/><path d="M19 22a10 10 0 0 1 9-7" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg>',pen:'<svg viewBox="0 0 64 64"><g transform="rotate(45 32 32)"><rect x="25" y="6" width="14" height="40" rx="2" fill="#ffc933"/><rect x="25" y="6" width="14" height="8" rx="2" fill="#ff7a9c"/><rect x="25" y="14" width="14" height="4" fill="#d5d9e4"/><path d="M25 46h14L32 60z" fill="#ffd9a8"/><path d="M29.5 54.5h5L32 60z" fill="#3b2a20"/></g></svg>'};
+const ic=n=>`<svg class="i" viewBox="0 0 24 24">${I[n]}</svg>`;
+const MIS=[[1,[2,1],'Terminer 1 niveau'],[3,[4,2],'Terminer 3 niveaux']],TRO=[['Premier niveau réussi',1,'t'],['5 niveaux réussis',5,'t'],['10 niveaux réussis',10,'t'],['25 niveaux réussis',25,'t'],['3 jours de suite',3,'s'],['7 jours de suite',7,'s']];
+function mis(){S.td.n++;MIS.forEach((m,i)=>{if(S.td.n>=m[0]&&!S.td.c.includes(i)){S.td.c.push(i);S.hl+=m[1][0];S.hm+=m[1][1];setTimeout(()=>toast('Mission accomplie : +'+m[1][0]+' lettres, +'+m[1][1]+' mots'),1200)}})}
+function home(){
+ const hr=new Date().getHours(),g=(hr<6||hr>=18?'Bonsoir':'Bonjour')+(S.name?' '+S.name:'')+' !';
+ const card=(m,n,sub)=>`<button class="gc ${m}" data-g="${m}"><span class="ic">${ART[n]}</span><div class="t"><h2>${NM[m]}</h2><small>${sub}</small><span class="lvp">Niveau ${S.l[m]}</span></div></button>`;
+ $('hc').innerHTML=`<h1>Jeux de mots</h1><p class="s">${g}<br>À quoi veux-tu jouer ?</p>
+ ${card('m','srch','Retrouve les mots cachés')}${card('f','pen','Remplis la grille')}
+ <p class="mini">${S.st} jour${S.st>1?'s':''} de suite · ${S.d.m+S.d.f} niveau${S.d.m+S.d.f>1?'x':''} réussi${S.d.m+S.d.f>1?'s':''}</p>`;
+ $('tb').innerHTML=[['home','Jouer',''],['target','Défis','mis'],['trophy','Trophées','tro'],['sliders','Réglages','set']].map((t,i)=>`<button ${i?`data-p="${t[2]}"`:'class="on"'}>${ic(t[0])}<span>${t[1]}</span></button>`).join('')}
+function panel(k){
+ const tot=S.d.m+S.d.f;let t,b;
+ if(k==='mis'){t='Missions du jour';b=MIS.map((m,i)=>{const n=Math.min(S.td.n,m[0]),ok=S.td.c.includes(i);return `<div class="rw ${ok?'ok':''}">${ic(ok?'check':'target')}<div>${m[2]}<small>Récompense : ${m[1][0]} lettres + ${m[1][1]} mots</small><div class="pg"><i style="width:${n/m[0]*100}%"></i></div></div><span>${n}/${m[0]}</span></div>`}).join('')}
+ else if(k==='tro'){t='Trophées';b=TRO.map(r=>{const v=r[2]==='t'?tot:S.st,ok=v>=r[1];return `<div class="rw ${ok?'ok':'no'}">${ic('trophy')}<div>${r[0]}<small>${Math.min(v,r[1])}/${r[1]}</small></div>${ok?ic('check'):''}</div>`}).join('')}
+ else{t='Réglages';b=`<p style="opacity:.8;margin-bottom:8px">Ton prénom</p><input id="nm2" class="in" value="${S.name||''}" maxlength="20" autocomplete="off"><button class="bt" id="sn" style="width:100%;flex:none">Enregistrer</button><button class="bt" id="rz" style="width:100%;flex:none;background:#4a2a62;margin-top:8px">Recommencer à zéro</button>`}
+ $('pt').textContent=t;$('pb').innerHTML=b;$('pn').classList.add('on')}
+const cl=v=>v.replace(/[<>"&]/g,'').trim();
+$('pc').onclick=()=>$('pn').classList.remove('on');
+$('pn').onclick=e=>{if(e.target.id==='pn')$('pn').classList.remove('on')};
+$('pb').onclick=e=>{if(e.target.id==='sn'){S.name=cl($('nm2').value);save();home();$('pn').classList.remove('on')}if(e.target.id==='rz')ask('Tout effacer et recommencer à zéro ?','Tout effacer',()=>{localStorage.removeItem(KEY);location.reload()})};
+$('home').onclick=e=>{const g=e.target.closest('[data-g]');if(g)return start(g.dataset.g);const p=e.target.closest('[data-p]');if(p)return panel(p.dataset.p);if(e.target.id==='ok'){S.name=cl($('nm').value);save();home()}};
+$('bk').onclick=()=>{home();show('home')};
+$('hm').onclick=()=>{$('win').classList.remove('on');home();show('home')};
+$('nx').onclick=()=>{$('win').classList.remove('on');lvl=S.l[mode];init()};
+function start(m){mode=m;S.last=m;lvl=S.l[m];save();show('game');init()}
+function init(){hb();$('ttl').textContent=NM[mode];$('lvt').innerHTML='Niveau '+lvl+'<small id="pgs"></small>';mode==='m'?initM():initF();hb()}
+function use(k,btn){const f=k==='m'?'hm':'hl';if(S[f]<1){toast(k==='m'?'Plus de mots en réserve':'Plus de lettres en réserve');return 0}S[f]--;save();hb();if(btn){btn.classList.remove('bp');void btn.offsetWidth;btn.classList.add('bp');const i=document.createElement('i');i.className='fl';i.textContent='−1';btn.appendChild(i);setTimeout(()=>i.remove(),1000)}return 1}
+function ask(q,yes,fn){$('cq').textContent=q;$('cy').textContent=yes;$('cf2').classList.add('on');$('cy').onclick=()=>{$('cf2').classList.remove('on');fn()};$('cn').onclick=()=>$('cf2').classList.remove('on')}
+function skip(){ask('Passer ce niveau ?','Passer',()=>{S.l[mode]=lvl+1;delete S.sv[mode];save();lvl++;init()})}
+function won(){S.d[mode]++;mis();S.hl+=2;S.hm+=1;S.l[mode]=lvl+1;delete S.sv[mode];save();hb();$('wt').textContent='Niveau '+lvl+' terminé !';$('win').classList.add('on');conf()}
+function conf(){const o=$('win');o.querySelectorAll('.cf').forEach(x=>x.remove());for(let i=0;i<40;i++){const d=document.createElement('i');d.className='cf';d.style.cssText=`left:${Math.random()*100}%;background:hsl(${Math.random()*360},85%,62%);animation-delay:${Math.random()*.6}s;animation-duration:${1.7+Math.random()}s`;o.appendChild(d)}}
+function fit(){
+ const gw=$('gw'),o=mode==='m'?M:F,W=mode==='m'?M.N:F.W,H=mode==='m'?M.N:F.H;
+ const c=Math.max(16,Math.min(62,Math.floor(Math.min((gw.clientWidth-28)/W,(gw.clientHeight-42)/H))));
+ o.c=c;$('grid').style.cssText=`--c:${c}px;grid-template-columns:repeat(${W},${c}px);grid-template-rows:repeat(${H},${c}px)`;if(mode==='f')fitTxt()}
+function fitTxt(){const ks=[...document.querySelectorAll('.K')],ms=ks.map(k=>{const sp=[...k.querySelectorAll('.cb span')];let m=99;sp.forEach(x=>{const b=x.parentNode,cs=getComputedStyle(b),aw=b.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight),ah=b.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);let f=F.c*.2;x.style.fontSize=f+'px';x.style.overflowWrap='normal';while(f>7&&(x.offsetHeight>ah||x.offsetWidth>aw)){f-=.5;x.style.fontSize=f+'px'}if(x.offsetWidth>aw)x.style.overflowWrap='anywhere';m=Math.min(m,f)});return m}),so=[...ms].sort((a,b)=>a-b),g=Math.max(7,so[Math.floor(so.length*.3)]||8);ks.forEach((k,i)=>k.querySelectorAll('.cb span').forEach(x=>x.style.fontSize=Math.min(ms[i],g)+'px'))}
+addEventListener('resize',()=>{if($('game').classList.contains('on'))fit()});
+/* ---- Mots mêlés ---- */
+function initM(){
+ $('ctl').innerHTML=`<div id="chips"></div><div class="tb"><button class="bt" id="hi">Indice (${S.hl})</button><button class="bt" id="ps">Passer</button></div>`;
+ const gw=$('gw'),sv=S.sv.m&&S.sv.m.l===lvl&&S.sv.m.N?S.sv.m:null,t=lvl<=5?32:lvl<=20?30:lvl<=40?28:27;
+ const N=sv?sv.N:Math.max(9,Math.min(13,Math.floor(Math.min(gw.clientWidth-28,gw.clientHeight-42)/t)));
+ M=genM(lvl,N);M.found=new Set(sv?sv.f.filter(a=>M.ws.some(w=>w.a===a)):[]);M.cur=[];M.el=[];M.mask=lvl>=12;
+ $('chips').innerHTML=M.ws.map((w,i)=>`<span class="ch" data-w="${w.a}" data-i="${i}"></span>`).join('');
+ $('hi').onclick=()=>{const u=M.ws.filter(w=>!M.found.has(w.a));if(!u.length){toast('Tout est trouvé');return}if(!use('l',$('hi')))return;const w=u[Math.random()*u.length|0],[r,c]=w.cs[0];M.el[r][c].classList.add('ht');setTimeout(()=>M.el[r][c].classList.remove('ht'),2500)};
+ $('ps').onclick=skip;
+ const g=$('grid');g.innerHTML='';
+ for(let r=0;r<M.N;r++){M.el[r]=[];for(let c=0;c<M.N;c++){const d=document.createElement('div');d.className='cell M'+((r+c)%2?' o':'');d.textContent=M.g[r][c];g.appendChild(d);M.el[r][c]=d}}
+ fit();paintM()}
+const PAL=[350,24,45,142,174,200,226,268,300,330];
+function paintM(){
+ const fd={};[...M.found].forEach(a=>{const i=M.ws.findIndex(w=>w.a===a);M.ws[i].cs.forEach(([r,c])=>fd[r+','+c]=PAL[i%PAL.length])});
+ const sl=new Set(M.cur.map(x=>x+''));
+ for(let r=0;r<M.N;r++)for(let c=0;c<M.N;c++){const d=M.el[r][c],k=r+','+c;d.classList.toggle('sl',sl.has(k));d.classList.toggle('fd',k in fd);d.style.background=k in fd?`hsl(${fd[k]},78%,58%)`:''}
+ document.querySelectorAll('.ch').forEach(e=>{const w=e.dataset.w,f=M.found.has(w),h=PAL[+e.dataset.i%PAL.length];e.classList.toggle('on',f);e.textContent=f||!M.mask?w:w[0]+'·'.repeat(w.length-1);e.style.background=f?`hsl(${h},72%,50%)`:`hsl(${h},100%,94%)`;e.style.color=f?'#fff':'#2b2570';e.style.boxShadow=`inset 0 0 0 2px hsl(${h},75%,${f?50:72}%)`});
+ $('pgs').textContent=M.found.size+'/'+M.ws.length+' mots'}
+function mc(e){const b=$('grid').getBoundingClientRect(),x=Math.floor((e.clientX-b.left)/M.c),y=Math.floor((e.clientY-b.top)/M.c);return x>=0&&y>=0&&x<M.N&&y<M.N?[y,x]:null}
+function line(s,p){let dr=p[0]-s[0],dc=p[1]-s[1];const n=Math.max(Math.abs(dr),Math.abs(dc));let sr=Math.sign(dr),sc=Math.sign(dc);
+ if(Math.abs(dr)>2*Math.abs(dc))sc=0;else if(Math.abs(dc)>2*Math.abs(dr))sr=0;
+ const o=[];for(let i=0;i<=n;i++){const r=s[0]+sr*i,c=s[1]+sc*i;if(r<0||c<0||r>=M.N||c>=M.N)break;o.push([r,c])}return o}
+const gr=$('grid');let ms=null;
+gr.onpointerdown=e=>{if(mode!=='m')return;ms=mc(e);if(!ms)return;gr.setPointerCapture(e.pointerId);M.cur=[ms];paintM()};
+gr.onpointermove=e=>{if(mode!=='m'||!ms)return;const p=mc(e);if(p){M.cur=line(ms,p);paintM()}};
+gr.onpointerup=()=>{
+ if(mode!=='m'||!ms)return;ms=null;
+ const s=M.cur.map(([r,c])=>M.g[r][c]).join(''),z=[...s].reverse().join('');
+ const w=M.ws.find(w=>!M.found.has(w.a)&&(w.a===s||w.a===z));M.cur=[];
+ if(w){M.found.add(w.a);S.sv.m={l:lvl,f:[...M.found],N:M.N};save();toast('Trouvé : '+w.a);w.cs.forEach(([r,c],n)=>{const d=M.el[r][c];d.style.setProperty('--i',n);d.classList.add('pp')});setTimeout(()=>w.cs.forEach(([r,c])=>M.el[r][c].classList.remove('pp')),1300);if(navigator.vibrate)navigator.vibrate(20)}
+ paintM();if(M.found.size===M.ws.length)setTimeout(won,1300)};
+/* ---- Mots fléchés ---- */
+function initF(){
+ const rows=['AZERTYUIOP','QSDFGHJKLM','WXCVBN⌫'];
+ $('ctl').innerHTML=`<div class="tb"><button class="bt" id="bl">Lettre (${S.hl})</button><button class="bt" id="bm">Mot (${S.hm})</button><button class="bt" id="bv">Vérifier</button><button class="bt" id="ps">Passer</button></div>
+ <div class="cr"><button class="nv" id="pv">◀</button><div id="cl"></div><button class="nv" id="nt">▶</button></div>
+ ${rows.map(r=>`<div class="kb">${[...r].map(k=>`<button data-k="${k}">${k}</button>`).join('')}</div>`).join('')}`;
+ $('ctl').onclick=e=>{const k=e.target.closest('[data-k]');if(k)k.dataset.k==='⌫'?backF():typeF(k.dataset.k)};
+ $('pv').onclick=()=>nav(-1);$('nt').onclick=()=>nav(1);$('ps').onclick=skip;
+ $('bl').onclick=()=>{const [r,c]=F.sel,k=r+','+c;if(F.i[k]===F.g[r][c].ch){toast('Cette lettre est déjà juste');return}if(!use('l',$('bl')))return;F.i[k]=F.g[r][c].ch;F.bad.delete(k);adv();saveF();after()};
+ $('bm').onclick=()=>{const e=F.ents[F.ei];if(entOk(e)){toast('Ce mot est déjà complet');return}if(!use('m',$('bm')))return;reveal(e.cells)};
+ $('bv').onclick=()=>{if(!Object.keys(F.i).length){toast('Rien à vérifier');return}let n=0;for(const k in F.i){const [r,c]=k.split(',');if(F.i[k]!==F.g[r][c].ch){F.bad.add(k);n++}}toast(n?n+' erreur'+(n>1?'s':'')+' en rouge':'Tout est juste jusqu’ici');paintF()};
+ const sv=S.sv.f&&S.sv.f.l===lvl&&S.sv.f.W?S.sv.f:null,gw=$('gw'),t=lvl<=10?48:lvl<=30?44:41,cl2=(v,a,b)=>Math.max(a,Math.min(b,v));
+ const W=sv?sv.W:cl2(Math.floor((gw.clientWidth-28)/t),5,9),H=sv?sv.H:cl2(Math.floor((gw.clientHeight-42)/t),6,11);
+ F=genF(lvl,W,H);F.i=sv?sv.i:{};F.bad=new Set();F.cm={};F.el=[];
+ F.ents.forEach((e,i)=>e.cells.forEach(([r,c])=>{(F.cm[r+','+c]=F.cm[r+','+c]||[]).push(i)}));
+ F.ei=0;F.sel=F.ents[0].cells[0];
+ const g=$('grid');g.innerHTML='';
+ for(let r=0;r<F.H;r++){F.el[r]=[];for(let c=0;c<F.W;c++){const k=F.g[r][c],d=document.createElement('div');d.className='cell '+(k.k===1?'L':k.k===2?'K':'X');d.dataset.r=r;d.dataset.c=c;
+  if(k.k===2)d.innerHTML=['r','d'].filter(x=>k.cl[x]).map(x=>`<div class="cb ${x}"><span>${k.cl[x].t}</span><i class="${x}">${x==='r'?'▶':'▼'}</i></div>`).join('');
+  g.appendChild(d);F.el[r][c]=d}}
+ F.done=new Set();F.anim=new Set();F.shk=new Set();F.fin=0;scan(true);fit();paintF()}
+$('grid').onclick=e=>{if(mode!=='f')return;const d=e.target.closest('.cell');if(d){const b=d.getBoundingClientRect();selF(+d.dataset.r,+d.dataset.c,(e.clientY-b.top)/b.height)}};
+const entOk=e=>e.cells.every(([r,c])=>F.i[r+','+c]===F.g[r][c].ch),entFull=e=>e.cells.every(([r,c])=>F.i[r+','+c]);
+const firstEmpty=e=>e.cells.find(([r,c])=>!F.i[r+','+c])||e.cells[0];
+function selF(r,c,fy){const k=F.g[r][c];
+ if(k.k===1){const l=F.cm[r+','+c];if(F.sel[0]===r&&F.sel[1]===c&&l.length>1)F.ei=l[(l.indexOf(F.ei)+1)%l.length];else if(!l.includes(F.ei))F.ei=l[0];F.sel=[r,c]}
+ else if(k.k===2){const ix=F.ents.map((e,i)=>e.R===r&&e.C===c?i:-1).filter(i=>i>=0);if(!ix.length)return;let i=ix[0];
+  if(ix.length>1){const w=fy>.5?1:0,f=ix.find(x=>F.ents[x].d===w);i=f===undefined?ix[0]:f}
+  F.ei=i;F.sel=firstEmpty(F.ents[i])}
+ paintF()}
+function nav(d){const n=F.ents.length;F.ei=(F.ei+d+n)%n;F.sel=firstEmpty(F.ents[F.ei]);paintF()}
+function paintF(){
+ const e=F.ents[F.ei],act=new Set(e.cells.map(x=>x+'')),dn=new Set();F.done.forEach(i=>F.ents[i].cells.forEach(x=>dn.add(x+'')));
+ for(let r=0;r<F.H;r++)for(let c=0;c<F.W;c++){if(F.g[r][c].k!==1)continue;const k=r+','+c;
+  F.el[r][c].className='cell L'+(act.has(k)?' a':'')+(dn.has(k)?' ok':'')+(F.sel[0]===r&&F.sel[1]===c?' s':'')+(F.bad.has(k)?' w':'')+(F.anim.has(k)?' pp':'')+(F.shk.has(k)?' sk':'');F.el[r][c].textContent=F.i[k]||''}
+ $('cl').textContent=`${e.d?'↓':'→'} ${e.t} (${e.a.length})`;$('cl').classList.toggle('dn',F.done.has(F.ei));
+ const g=$('pgs');if(g)g.textContent=F.done.size+'/'+F.ents.length+' mots'}
+function saveF(){S.sv.f={l:lvl,i:F.i,W:F.W,H:F.H};save()}
+function scan(silent){F.ents.forEach((e,i)=>{const o=entOk(e);if(F.done.has(i)&&!o)F.done.delete(i);else if(!F.done.has(i)&&o){F.done.add(i);if(!silent)celebrate(e)}})}
+function celebrate(e){e.cells.forEach(([r,c],n)=>{F.anim.add(r+','+c);F.el[r][c].style.setProperty('--i',n)});setTimeout(()=>{e.cells.forEach(([r,c])=>F.anim.delete(r+','+c));paintF()},1200);if(navigator.vibrate)navigator.vibrate(20)}
+function shake(e){e.cells.forEach(([r,c])=>F.shk.add(r+','+c));paintF();setTimeout(()=>{e.cells.forEach(([r,c])=>F.shk.delete(r+','+c));paintF()},500)}
+function after(){
+ const n0=F.done.size,cur=F.ei,e=F.ents[cur];scan();paintF();
+ if(F.done.size===F.ents.length){if(!F.fin){F.fin=1;setTimeout(won,1300)}return}
+ if(F.done.has(cur)&&F.done.size>n0)setTimeout(()=>{if(F.ei!==cur||F.fin)return;for(let k=1;k<=F.ents.length;k++){const j=(cur+k)%F.ents.length;if(!F.done.has(j)){F.ei=j;F.sel=firstEmpty(F.ents[j]);break}}paintF()},800);
+ else if(entFull(e)&&!entOk(e)){shake(e);toast('Un mot ne colle pas : essaie « Vérifier »')}}
+function adv(){const e=F.ents[F.ei],i=e.cells.findIndex(x=>x[0]===F.sel[0]&&x[1]===F.sel[1]);if(i>=0&&i<e.cells.length-1){const j=e.cells.findIndex((x,n)=>n>i&&!F.i[x[0]+','+x[1]]);F.sel=e.cells[j>0?j:i+1]}}
+function typeF(ch){const k=F.sel[0]+','+F.sel[1];F.i[k]=ch;F.bad.delete(k);adv();saveF();after()}
+function backF(){const e=F.ents[F.ei];let k=F.sel[0]+','+F.sel[1];
+ if(!F.i[k]){const i=e.cells.findIndex(x=>x[0]===F.sel[0]&&x[1]===F.sel[1]);if(i>0){F.sel=e.cells[i-1];k=F.sel[0]+','+F.sel[1]}}
+ delete F.i[k];F.bad.delete(k);saveF();scan(true);paintF()}
+function reveal(cs){cs.forEach(([r,c])=>{F.i[r+','+c]=F.g[r][c].ch;F.bad.delete(r+','+c)});saveF();after()}
+document.addEventListener('keydown',e=>{if(!$('game').classList.contains('on')||mode!=='f')return;if(/^[a-z]$/i.test(e.key))typeF(e.key.toUpperCase());else if(e.key==='Backspace')backF()});
+home();
 </script></body></html>
